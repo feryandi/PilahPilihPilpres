@@ -1,41 +1,100 @@
 from google.cloud import datastore
 import json
+import uuid
+
+class Survey:
+  key = 2
+
+  def __init__(self, client, name):
+    self.client = client
+    self.name = name
+
+  def create(self):
+    key = self.client.key('Survey', self.key)
+    entity = datastore.Entity(key=key)
+    entity.update({
+        'name': self.name,
+    })
+    self.client.put(entity)
+
+
+class Question:
+  def __init__(self, client, question, choice):
+    self.client = client
+    self.question = question
+    self.choice = choice
+
+  def create(self):
+    key = self.client.key('Survey', Survey.key, 'Question')
+    entity = datastore.Entity(key=key)
+    entity.update({
+        'question': self.question,
+        'choice': self.choice,
+    })
+    self.client.put(entity)
+
+  def get(self):
+    ancestor = self.client.key('Survey', Survey.key)
+    query = self.client.query(kind='Question', ancestor=ancestor)
+    results = list(query.fetch())
+
+    for entity in results:
+      print(entity.id)
+      print(entity['question'])
+      print(entity['choice'])
+
+
+class User:
+  def __init__(self, client, fingerprint):
+    self.client = client
+    self.fingerprint = fingerprint
+    self.session = str(uuid.uuid4())
+
+  def create(self):
+    key = self.client.key('User', self.fingerprint)
+    entity = datastore.Entity(key=key)
+    entity.update({
+        'fingerprint': self.fingerprint,
+        'session': self.session,
+    })
+    self.client.put(entity)
+
+  def get(self):
+    key = self.client.key('User', self.fingerprint)
+    result = self.client.get(key)
+    print(result)
+    self.session = result['session']
+
+
+def Answer:
+  def __init__(self, client, user, question, answer):
+    self.client = client
+    self.user = user
+    self.question = question
+    self.answer = answer
+
+  def create(self):
+    key = self.client.key('User', self.user, 'Answer')
+    entity = datastore.Entity(key=key)
+    entity.update({
+        'question': self.question,
+        'answer': self.answer,
+    })
+    self.client.put(entity)
+
 
 client = datastore.Client(namespace='survey')
 
-def create_survey(name):
-  key = client.key('Survey', 1)
-  entity = datastore.Entity(key=key)
-  entity.update({
-      'name': name,
-  })
-  client.put(entity)
+user = User(client, 'abcdef')
+# user.create()
+user.get()
 
-# create_survey(u'Pilpres 2019')
+# survey = Survey(client, 'Pilpres Test')
+# survey.create()
 
+# question = Question(client, 'Question something?', json.dumps([{'text': 'Heya', 'result': -1}]))
+# question.create()
+# question.create()
+# question.create()
 
-def create_question(question, choice):
-  key = client.key('Survey', 1, 'Question')
-  entity = datastore.Entity(key=key)
-  entity.update({
-      'question': question,
-      'choice': choice,
-  })
-  client.put(entity)
-
-# create_question(u'Question here?', json.dumps([{'text': 'Answer A', 'result': 1}, {'text': 'Answer A', 'result': 2}]))
-
-
-def get_questions(survey):
-  ancestor = client.key('Survey', survey)
-  query = client.query(kind='Question', ancestor=ancestor)
-  results = list(query.fetch())
-
-  for entity in results:
-    print(entity.id)
-    print(entity['question'])
-    print(entity['choice'])
-
-get_questions(1)
-
-
+# question.get()
