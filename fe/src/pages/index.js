@@ -7,13 +7,4 @@ const Index = (props) => {
   )
 }
 
-Index.getInitialProps = async function(payload) {
-  // console.log(payload.req.headers['user-agent'])
-
-  // return {
-  //   userAgent: payload.req.headers['user-agent']
-  // }
-  return {}
-}
-
 export default Index

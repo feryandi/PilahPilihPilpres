@@ -247,7 +247,7 @@ export default class extends Component {
               </button>
             }
           </div>
-          <div className="col">
+          <div className="col col-md">
             <Link href='/result'>
               <button
                 type="button"
@@ -260,7 +260,7 @@ export default class extends Component {
             { this.hasNextQuestion() &&
               <button
                 type="button"
-                className="btn btn-danger"
+                className="btn btn-danger btn-block"
                 onClick={() => this.nextQuestion()}>
                 <i className="fas fa-arrow-circle-right"/>
               </button>

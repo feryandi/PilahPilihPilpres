@@ -228,17 +228,20 @@ def get_questionnaire(request):
   question = Question(client)
   questions = question.get_all()
   question_ids = set(questions.keys())
+  question_ids_sorted = sorted(question_ids)
   response['questions'] = {}
 
   # Hide the choice meaning
   for key, value in questions.items():
-    response['questions'][key] = {
+    q = question_ids_sorted.index(key)
+    response['questions'][q] = {
+      "id": key,
       "question": value.get("question"),
       "choice": []
     }
     # TODO: Check if array
     for choice in value.get("choice"):
-      response['questions'][key]['choice'].append({
+      response['questions'][q]['choice'].append({
         "id": choice.get("id"),
         "text": choice.get("text")
       })
@@ -248,13 +251,22 @@ def get_questionnaire(request):
   answer = Answer(client, user)
   answers = answer.get_batch(questions=list(question_ids))
   answered_question_ids = set(answers.keys())
-  response['answers'] = answers
+  response['answers'] = {}
+
+  for key, value in answers.items():
+    q = question_ids_sorted.index(key)
+    response['answers'][q] = {
+      "qid": key,
+      "answer": value.get("answer"),
+      "id": value.get("id"),
+    }
 
   unanswered_question_ids = question_ids.difference(answered_question_ids)
   last_unanswered_question_id = None
 
   if unanswered_question_ids: 
     last_unanswered_question_id = sorted(unanswered_question_ids)[0]
+    last_unanswered_question_id = question_ids_sorted.index(last_unanswered_question_id)
 
   response['last_unanswered'] = last_unanswered_question_id
   response['status'] = 'ok'

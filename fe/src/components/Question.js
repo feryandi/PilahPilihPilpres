@@ -7,96 +7,10 @@ export default class extends Component {
     q: PropTypes.number
   }
 
-//   {
-//     "answers": {
-//         "5633226290757632": {
-//             "answer": 0,
-//             "id": null
-//         },
-//         "5643172898144256": {
-//             "answer": 1,
-//             "id": null
-//         }
-//     },
-//     "last_unanswered": null,
-//     "questions": {
-//         "5633226290757632": {
-//             "choice": [
-//                 {
-//                     "id": 1,
-//                     "text": "Pantai"
-//                 },
-//                 {
-//                     "id": 2,
-//                     "text": "Gunung"
-//                 },
-//                 {
-//                     "id": 3,
-//                     "text": "Neraka"
-//                 }
-//             ],
-//             "question": "Kemana Anda ingin pergi berlibur?"
-//         },
-//         "5643172898144256": {
-//             "choice": [
-//                 {
-//                     "id": 1,
-//                     "text": "Ya"
-//                 },
-//                 {
-//                     "id": 2,
-//                     "text": "Tidak"
-//                 }
-//             ],
-//             "question": "Apakah Anda setuju anggaran militer perlu dinaikkan?"
-//         }
-//     },
-//     "status": "ok"
-//  }
-
   constructor (props) {
     super(props);
     this.state = {
         ...this.props,
-        next: this.props.q + 1,        
-        answers: {},
-        last_unanswered: 1,
-        questions: {
-          1: {
-            id: 5633226290757632,
-            choice: [
-              {
-                id: 1,
-                text: "Pantai"
-              },
-              {
-                id: 2,
-                text: "Gunung"
-              },
-              {
-                id: 3,
-                text: "Neraka. Karena saya suka api dan panas. Saya anak Bekasi yang selalu terkena hawa panas yang ada di kota ini sehingga saya sangat suka dengan panas."
-              }
-            ],
-            question: "Kemana Anda ingin pergi berlibur?",
-            helper: "Pilih salah satu yang paling merepresentasikan Anda."
-          },
-          2: {
-            id: 5643172898144256,
-            choice: [
-              {
-                id: 1,
-                text: "Ya"
-              },
-              {
-                id: 2,
-                text: "Tidak"
-              }
-            ],
-            question: "Anggaran militer perlu dinaikkan",
-            helper: "Setujukah Anda dengan pernyataan tersebut?"
-          }
-        }
     };
   }
 
@@ -106,7 +20,7 @@ export default class extends Component {
 
   hasPrevQuestion() {
     const last_unanswered = this.state.last_unanswered;
-    return last_unanswered - 1 > 0
+    return last_unanswered - 1 >= 0
   }
 
   prevQuestion() {
@@ -125,7 +39,7 @@ export default class extends Component {
   hasNextQuestion() {
     const last_unanswered = this.state.last_unanswered;
     const questions = this.state.questions;
-    return last_unanswered + 1 <= Object.keys(questions).length
+    return last_unanswered + 1 < Object.keys(questions).length
   }
 
   nextQuestion() {
@@ -190,7 +104,7 @@ export default class extends Component {
         <div className="row">
           <div className="col-12 col-md-1">
             <h2>
-              <span className="badge badge-secondary">{ this.state.last_unanswered }</span>
+              <span className="badge badge-secondary">{ this.state.last_unanswered + 1 }</span>
             </h2>
           </div>
           <div className="col">
@@ -252,7 +166,7 @@ export default class extends Component {
                 <button
                   type="button"
                   className="btn btn-danger">
-                  { !this.hasAnswer() && <b>LEWATI&nbsp;&nbsp;&nbsp;</b> }<i class="fas fa-check-circle"></i>
+                  { !this.hasAnswer() && <b>LEWATI&nbsp;&nbsp;&nbsp;</b> }<i className="fas fa-check-circle"></i>
                 </button>
               </Link>
             )}

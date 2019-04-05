@@ -12,8 +12,8 @@ const app = next({ dir: 'src', dev });
 const handle = app.getRequestHandler();
 const port = dev ? 3000 : 8080;
 
-// const auth = require('./api/auth');
-// const analysis = require('./api/analysis');
+const session = require('./api/session');
+const question = require('./api/question');
 // const scrape = require('./api/scrape');
 
 app.prepare().then(() => {
@@ -25,8 +25,8 @@ app.prepare().then(() => {
   server.use(cookieParser())
   server.use(useragent.express());
 
-  // server.use('/api/v1/auth', auth);
-  // server.use('/api/v1/analysis', analysis);
+  server.use('/api/session', session);
+  server.use('/api/question', question);
   // server.use('/api/v1/scrape', scrape);
 
   server.get('*', (req, res) => { return handle(req, res); });
