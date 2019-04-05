@@ -1,0 +1,25 @@
+{
+  "name": "survey",
+  "version": "1.0.0",
+  "description": "",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "cookie-parser": "^1.4.4",
+    "dotenv": "^7.0.0",
+    "express": "^4.16.4",
+    "express-useragent": "^1.0.12",
+    "fingerprintjs2": "^2.0.6",
+    "next": "^8.0.4",
+    "nookies": "^2.0.4",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "dev": "nodemon -w server.js server.js",
+    "build": "next build",
+    "start": "next start"
+  },
+  "author": "",
+  "license": "ISC"
+}

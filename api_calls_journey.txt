@@ -1,0 +1,35 @@
+# HOMEPAGE
+> check cookie
+: do not have fp and session
+  > [/get_session]
+  > add to cookie
+
+# QUESTION
+> check cookie
+: do not have fp and session
+  > redirect to HOMEPAGE
+: have fp and session
+  > [/get_last_status_of_the_user]
+    . questions
+    . answers
+    . last unanswered question id
+  > check last unanswered question id
+  : do not have
+    > redirect to RESULT
+  : have
+    > redirect to QUESTIONS/:index
+
+# RESULT
+> check cookie
+: do not have fp and session
+  > redirect to HOMEPAGE
+: have fp and session
+  > [/get_result_of_the_user]
+
+
+# ANSWER
+> check cookie
+: do not have fp and session
+  > redirect to HOMEPAGE
+: have fp and session
+  > [/get_result_of_the_user]
