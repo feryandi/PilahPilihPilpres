@@ -1,3 +1,6 @@
 venv
+node_modules
 fe/node_modules
+fe/src/.next
 fe/.next
+.next
