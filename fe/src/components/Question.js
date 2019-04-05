@@ -75,7 +75,7 @@ export default class extends Component {
               },
               {
                 id: 3,
-                text: "Neraka"
+                text: "Neraka. Karena saya suka api dan panas. Saya anak Bekasi yang selalu terkena hawa panas yang ada di kota ini sehingga saya sangat suka dengan panas."
               }
             ],
             question: "Kemana Anda ingin pergi berlibur?",
@@ -118,6 +118,7 @@ export default class extends Component {
       this.setState({
         last_unanswered: last_unanswered - 1
       });
+      window.scrollTo(0, 0);
     }
   }
   
@@ -137,6 +138,7 @@ export default class extends Component {
       this.setState({
         last_unanswered: last_unanswered + 1
       });
+      window.scrollTo(0, 0);
     }
   }
 
@@ -166,6 +168,16 @@ export default class extends Component {
     this.setState(answers);
   }
 
+  checkUnselectionAnswer(e) {
+    const checked = e.currentTarget.checked;
+
+    if (checked) {
+      let answers = this.state.answers;
+      delete answers[this.state.last_unanswered];
+      this.setState(answers);
+    }
+  }
+
   componentDidMount() {}
 
   failure() {
@@ -176,7 +188,7 @@ export default class extends Component {
     return (
       <div>
         <div className="row">
-          <div className="col-1">
+          <div className="col-12 col-md-1">
             <h2>
               <span className="badge badge-secondary">{ this.state.last_unanswered }</span>
             </h2>
@@ -186,11 +198,10 @@ export default class extends Component {
               { this.currentQuestion().question }
             </h2>
             <p>{ this.currentQuestion().helper }</p>
-            <br/>
           </div>
         </div>
 
-        <div className="row text-left">
+        <div className="row text-left d-block">
           { this.currentQuestion().choice.map((choice, index) => {
             return(
               <div key={ choice.id } className="col">
@@ -200,6 +211,7 @@ export default class extends Component {
                     id={ choice.id }
                     name="answer"
                     className="custom-control-input box-control-input"
+                    onClick={ (e) => this.checkUnselectionAnswer(e) }
                     onChange={ (e) => this.selectAnswer(e) }
                     checked={ this.isSelectedAnswer(choice.id) }/>
                   <label
@@ -208,6 +220,7 @@ export default class extends Component {
                     { choice.text }
                   </label>
                 </div>
+                <br/>
               </div>
             )
           }) }
@@ -231,17 +244,15 @@ export default class extends Component {
               <button
                 type="button"
                 className="btn btn-danger"
-                disabled={ !this.hasAnswer() }
                 onClick={() => this.nextQuestion()}>
-                <i className="fas fa-arrow-circle-right"/>
+                { !this.hasAnswer() && <b>LEWATI&nbsp;&nbsp;&nbsp;</b> }<i className="fas fa-arrow-circle-right"/>
               </button>
             ) : (
               <Link href='/result'>
                 <button
                   type="button"
-                  className="btn btn-danger"
-                  disabled={ !this.hasAnswer() }>
-                  <i class="fas fa-check-circle"></i>
+                  className="btn btn-danger">
+                  { !this.hasAnswer() && <b>LEWATI&nbsp;&nbsp;&nbsp;</b> }<i class="fas fa-check-circle"></i>
                 </button>
               </Link>
             )}

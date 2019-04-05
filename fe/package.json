@@ -17,8 +17,8 @@
   "devDependencies": {},
   "scripts": {
     "dev": "nodemon -w server.js server.js",
-    "build": "next build",
-    "start": "next start"
+    "build": "NODE_ENV=production next build src",
+    "start": "NODE_ENV=production node server.js"
   },
   "author": "",
   "license": "ISC"

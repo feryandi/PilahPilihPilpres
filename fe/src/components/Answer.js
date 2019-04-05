@@ -168,6 +168,7 @@ export default class extends Component {
       this.setState({
         current_question: current_question - 1
       });
+      window.scrollTo(0, 0);
     }
   }
   
@@ -183,10 +184,10 @@ export default class extends Component {
     if (!this.state.questions.hasOwnProperty(current_question + 1)) {
 
     } else {
-      // Send the answer
       this.setState({
         current_question: current_question + 1
       });
+      window.scrollTo(0, 0);
     }
   }
 
@@ -198,7 +199,7 @@ export default class extends Component {
     return (
       <div>
         <div className="row">
-          <div className="col-1">
+          <div className="col-12 col-md-1">
             <h2>
               <span className="badge badge-secondary">{ this.state.current_question }</span>
             </h2>
@@ -236,7 +237,7 @@ export default class extends Component {
         }) }
 
         <div className="row">
-          <div className="col text-left">
+          <div className="col-2 col-md text-left">
             { this.hasPrevQuestion() &&
               <button
                 type="button"
@@ -255,7 +256,7 @@ export default class extends Component {
               </button>
             </Link>
           </div>
-          <div className="col text-right">
+          <div className="col-2 col-md text-right">
             { this.hasNextQuestion() &&
               <button
                 type="button"

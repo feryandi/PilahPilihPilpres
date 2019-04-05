@@ -1,0 +1,10 @@
+runtime: nodejs8
+
+instance_class: F1
+
+service: survey
+
+handlers:
+- url: /.*
+  script: auto
+  secure: always

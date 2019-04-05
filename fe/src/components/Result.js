@@ -20,7 +20,7 @@ export default class extends Component {
     return (
       <div>
         <div className="row text-center">
-          <div className="offset-3 col-6">
+          <div className="col-12 offset-md-3 col-md-6">
             <img
               src="https://4.img-dpreview.com/files/p/E~TS590x0~articles/3925134721/0266554465.jpeg"
               width="100%"/>
@@ -28,20 +28,20 @@ export default class extends Component {
         </div>
 
         <div className="row text-center">
-          <div className="offset-3 col-6 result-badge">
+          <div className="col-12 offset-md-3 col-md-6 result-badge">
             <h2><b>70%</b></h2>
             Aspirasi Anda dipenuhi pasangan nomor 10
           </div>
         </div>
 
         <div className="row">
-          <div className="offset-3 col-6 result-other">
+          <div className="col-12 offset-md-3 col-md-6 result-other">
             <span class="badge badge-pill badge-secondary">20%</span> aspirasi dipenuhi pasangan nomor 05
           </div>
         </div>
 
         <div className="row">
-          <div className="offset-3 col-6 result-other">
+          <div className="col-12 offset-md-3 col-md-6 result-other">
             <span class="badge badge-pill badge-secondary">20%</span> aspirasi tidak dipenuhi oleh manapun
           </div>
         </div>
@@ -49,14 +49,14 @@ export default class extends Component {
         <br/>
 
         <div className="row">
-          <div className="col">
+          <div className="col-2 col-md">
           </div>
           <div className="col">
             <Link href='/answer'>
               <button type="button" className="btn btn-danger btn-block"><b>PENJELASAN</b></button>
             </Link>
           </div>
-          <div className="col">
+          <div className="col-2 col-md">
           </div>
         </div>          
       </div>
