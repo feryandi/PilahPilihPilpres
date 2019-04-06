@@ -163,7 +163,7 @@ def validate_request(payload, required_attributes):
 
   attributes = set(payload.keys())
   
-  if set(required_attributes) != attributes:
+  if not set(required_attributes).issubset(attributes):
     return create_response(**{
       "status": "error",
       "message": "Invalid request (err:2)"
@@ -342,13 +342,17 @@ def post_answer(request):
     "fp": "abcdefg",
     "se": "aa-aa-aa",
     "to": "sha",
-    "qid": 12345,
-    "aid": 1
+    "answers": {
+      "1": {
+        "qid": 123,
+        "answer": 1
+      }, ...
+    }
   }
   """
   payload = request.get_json()
 
-  validation = validate_request(payload, ['fp', 'se', 'to', 'qid', 'aid'])
+  validation = validate_request(payload, ['fp', 'se', 'to', 'answers'])
   if validation is not None:
     return validation
 
@@ -362,28 +366,20 @@ def post_answer(request):
 
   user = User(client, fingerprint=payload['fp'], session=payload['se'])
 
-  question = Question(client)
-  question.get(qid=payload['qid'])
+  answers = payload['answers']
 
-  if question.question is None:
-    return create_response(**{
-      "status": "error",
-      "message": "Invalid request (err:5)"
-    })
+  for key, value in answers.items():
+    question = Question(client)
+    question.get(qid=int(value.get('qid')))
 
-  correct_aid = False
-  for choice in question.choice:
-    if payload['aid'] == int(choice.get('aid', -1)):
-      correct_aid = True
+    if question.question is None:
+      return create_response(**{
+        "status": "error",
+        "message": "Invalid request (err:5)"
+      })
 
-  if not correct_aid:
-    return create_response(**{
-      "status": "error",
-      "message": "Invalid request (err:7)"
-    })
-
-  answer = Answer(client, user, payload['qid'], payload['aid'])
-  answer.create()
+    answer = Answer(client, user, value.get('qid'), value.get('answer'))
+    answer.create()
 
   return create_response(**{"status": "ok"})
 

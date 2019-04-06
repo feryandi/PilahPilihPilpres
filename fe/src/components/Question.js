@@ -1,6 +1,11 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Link from 'next/link'
+import Router from 'next/router'
+import Reaptcha from 'reaptcha'
+import nookies from 'nookies'
+
+const _reCaptchaRef = React.createRef();
 
 export default class extends Component {
   static propTypes = {
@@ -11,7 +16,14 @@ export default class extends Component {
     super(props);
     this.state = {
         ...this.props,
+        token: '',
+        loaded: false,
+        rendered: false,
+        verified: false,
+        submitted: false,
+        executing: false
     };
+    this.captcha = null;
   }
 
   currentQuestion() {
@@ -42,13 +54,12 @@ export default class extends Component {
     return last_unanswered + 1 < Object.keys(questions).length
   }
 
-  nextQuestion() {
+  async nextQuestion() {
     const last_unanswered = this.state.last_unanswered;
 
-    if (!this.state.questions.hasOwnProperty(last_unanswered + 1)) {
-
+    if (!this.hasNextQuestion()) {
+      this.captcha.execute();
     } else {
-      // Send the answer
       this.setState({
         last_unanswered: last_unanswered + 1
       });
@@ -74,12 +85,36 @@ export default class extends Component {
 
   selectAnswer(e) {
     const answer = {
+      qid: this.currentQuestion().id,
       answer: parseInt(e.currentTarget.id)
     };
 
     let answers = this.state.answers;
     answers[this.state.last_unanswered] = answer;
     this.setState(answers);
+  }
+
+  async sendAnswers(token) {
+    const cookies = nookies.get();
+
+    let payload = {
+      fp: cookies['fp'],
+      se: cookies['se'],
+      to: cookies['to'],
+      reCaptcha: token,
+      answers: this.state.answers
+    }
+
+    console.log(payload)
+
+    // TODO: Only absolute URL
+    await fetch(`http://localhost:3000/api/answer/send`, {
+      method: 'POST',
+      body: JSON.stringify(payload),
+      headers: {
+          'Content-Type': 'application/json'
+      }
+    }).then(res => res.json());
   }
 
   checkUnselectionAnswer(e) {
@@ -94,8 +129,25 @@ export default class extends Component {
 
   componentDidMount() {}
 
+  handleChange = value => {
+    console.log("Captcha value:", value);
+    this.setState({ value });
+    // if value is null recaptcha expired
+    if (value === null) this.setState({ expired: "true" });
+  }
+
+  onVerify = () => async (token) => {
+    this.setState({ token, verified: true });
+    await this.sendAnswers(token)
+    Router.push('/result');
+  }
+
+  onExpire = () => () => {
+    this.setState({ verified: false });
+  }
+  
   failure() {
-      return('Invalid input')
+    return('Invalid input')
   }
 
   success() {
@@ -154,22 +206,27 @@ export default class extends Component {
           <div className="col">
           </div>
           <div className="col text-right">
-            { this.hasNextQuestion() ? (
-              <button
-                type="button"
-                className="btn btn-danger"
-                onClick={() => this.nextQuestion()}>
-                { !this.hasAnswer() && <b>LEWATI&nbsp;&nbsp;&nbsp;</b> }<i className="fas fa-arrow-circle-right"/>
-              </button>
-            ) : (
-              <Link href='/result'>
-                <button
-                  type="button"
-                  className="btn btn-danger">
-                  { !this.hasAnswer() && <b>LEWATI&nbsp;&nbsp;&nbsp;</b> }<i className="fas fa-check-circle"></i>
-                </button>
-              </Link>
-            )}
+            <Reaptcha
+              ref={e => (this.captcha = e)}
+              sitekey="6LeGapwUAAAAACloH7gj-E5PWlIcXO-k_JBMmiNZ"
+              onVerify={this.onVerify()}
+              onExpire={this.onExpire()}
+              size="invisible"
+            />
+            <button 
+              type="button"
+              className="btn btn-danger"
+              onClick={() => {
+                this.nextQuestion();
+              }}>
+              { !this.hasAnswer() && <b>LEWATI&nbsp;&nbsp;&nbsp;</b> }
+              
+              { this.hasNextQuestion() ? (
+                <i className="fas fa-arrow-circle-right"/>
+              ) : (
+                <i className="fas fa-check-circle"></i>
+              )}
+            </button>
           </div>
         </div>
       </div>

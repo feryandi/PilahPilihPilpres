@@ -14,7 +14,7 @@ const port = dev ? 3000 : 8080;
 
 const session = require('./api/session');
 const question = require('./api/question');
-// const scrape = require('./api/scrape');
+const answer = require('./api/answer');
 
 app.prepare().then(() => {
   const server = express();
@@ -27,7 +27,7 @@ app.prepare().then(() => {
 
   server.use('/api/session', session);
   server.use('/api/question', question);
-  // server.use('/api/v1/scrape', scrape);
+  server.use('/api/answer', answer);
 
   server.get('*', (req, res) => { return handle(req, res); });
 

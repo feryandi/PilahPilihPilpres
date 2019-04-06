@@ -1,6 +1,7 @@
 import Question from '../components/Question'
 import fetch from 'isomorphic-fetch';
 import nookies from 'nookies'
+import Router from 'next/router'
 
 const Questionnaire = (props) => {
   return(
@@ -25,6 +26,17 @@ Questionnaire.getInitialProps = async function(context) {
         'Content-Type': 'application/json'
     }
   }).then(res => res.json());
+
+  if (result.last_unanswered == null) {
+    if (context.res) {
+      context.res.writeHead(302, {
+        Location: '/result'
+      })
+      context.res.end()
+    } else {
+      Router.push('/result')
+    }
+  }
 
   return result;
 }
