@@ -7,156 +7,26 @@ export default class extends Component {
     q: PropTypes.number
   }
 
-  // {
-  //   "questions": {
-  //       "5633226290757632": {
-  //           "choice": [
-  //               {
-  //                   "id": 1,
-  //                   "reason": "text and <html/>",
-  //                   "result": 1,
-  //                   "sources": [
-  //                       "http://",
-  //                       "http://"
-  //                   ],
-  //                   "text": "Pantai"
-  //               },
-  //               {
-  //                   "id": 2,
-  //                   "reason": "text and <html/>",
-  //                   "result": 2,
-  //                   "sources": [
-  //                       "http://",
-  //                       "http://"
-  //                   ],
-  //                   "text": "Gunung"
-  //               },
-  //               {
-  //                   "id": 3,
-  //                   "reason": "text and <html/>",
-  //                   "result": 0,
-  //                   "sources": [
-  //                       "http://",
-  //                       "http://"
-  //                   ],
-  //                   "text": "Neraka"
-  //               }
-  //           ],
-  //           "question": "Kemana Anda ingin pergi berlibur?"
-  //       },
-  //       "5643172898144256": {
-  //           "choice": [
-  //               {
-  //                   "id": 1,
-  //                   "reason": "text and <html/>",
-  //                   "result": 2,
-  //                   "sources": [
-  //                       "http://",
-  //                       "http://"
-  //                   ],
-  //                   "text": "Ya"
-  //               },
-  //               {
-  //                   "id": 2,
-  //                   "reason": "text and <html/>",
-  //                   "result": 1,
-  //                   "sources": [
-  //                       "http://",
-  //                       "http://"
-  //                   ],
-  //                   "text": "Tidak"
-  //               }
-  //           ],
-  //           "question": "Apakah Anda setuju anggaran militer perlu dinaikkan?"
-  //       }
-  //   },
-  //   "stance": {
-  //       "2": 1
-  //   },
-  //   "status": "ok"
-  // }
-
   constructor (props) {
     super(props);
     this.state = {
         ...this.props,
-        current_question: 1,
-        questions: {
-          1: {
-              id: 5633226290757632,
-              choice: [
-                {
-                    id: 1,
-                    reason: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-                    result: 1,
-                    sources: [
-                        "http://",
-                        "http://"
-                    ],
-                    text: "Pantai"
-                },
-                {
-                    id: 2,
-                    reason: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-                    result: 2,
-                    sources: [
-                        "http://",
-                        "http://"
-                    ],
-                    text: "Gunung"
-                },
-                {
-                    id: 3,
-                    reason: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-                    result: 0,
-                    sources: [
-                        "http://",
-                        "http://"
-                    ],
-                    text: "Neraka"
-                }
-              ],
-              question: "Kemana Anda ingin pergi berlibur?"
-          },
-          2: {
-            id: 5643172898144256,
-              choice: [
-                  {
-                      id: 1,
-                      reason: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-                      result: 2,
-                      sources: [
-                          "http://",
-                          "http://"
-                      ],
-                      text: "Ya"
-                  },
-                  {
-                      id: 2,
-                      reason: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
-                      result: 1,
-                      sources: [
-                          "http://",
-                          "http://"
-                      ],
-                      text: "Tidak"
-                  }
-              ],
-              question: "Apakah Anda setuju anggaran militer perlu dinaikkan?"
-          }
-        }
+        current_question: 0
     };
   }
 
   componentDidMount() {}
 
   currentQuestion() {
+    console.log(this.state.current_question)
+    console.log(this.state.questions)
+    console.log(this.state.questions[this.state.current_question])
     return this.state.questions[this.state.current_question];
   }
 
   hasPrevQuestion() {
     const current_question = this.state.current_question;
-    return current_question - 1 > 0
+    return current_question - 1 >= 0
   }
 
   prevQuestion() {
@@ -175,7 +45,7 @@ export default class extends Component {
   hasNextQuestion() {
     const current_question = this.state.current_question;
     const questions = this.state.questions;
-    return current_question + 1 <= Object.keys(questions).length
+    return current_question + 1 < Object.keys(questions).length
   }
 
   nextQuestion() {

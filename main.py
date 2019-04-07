@@ -327,12 +327,15 @@ def get_result(request):
     selected_answer = qna['answers'].get(key, {}).get('answer', -1)
 
     for choice in choices:
+      party = str(choice.get('result', -1))
       if int(choice.get('id', -1)) == int(selected_answer):
-        party = str(choice.get('result', -1))
         if party in result:
           result[party] += 1
         else:
           result[party] = 1
+      else:
+        if party not in result:
+          result[party] = 0
 
   score_map = {}
   score_order = []
@@ -344,7 +347,7 @@ def get_result(request):
       score_map[value] = [key]
       score_order.append(value)
 
-  score_order.sort()
+  score_order.sort(reverse=True)
 
   response['status'] = 'ok'
   response['stance'] = result

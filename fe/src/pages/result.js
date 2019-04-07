@@ -1,9 +1,13 @@
 import Result from '../components/Result'
+import Answer from '../components/Answer'
 import nookies from 'nookies'
 
 const ResultPage = (props) => {
   return(
-    <Result {...props}/>
+    <React.Fragment>
+      {/* <Result {...props}/> */}
+      <Answer {...props}/>
+    </React.Fragment>
   )
 }
 
