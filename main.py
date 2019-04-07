@@ -174,6 +174,65 @@ def validate_request(payload, required_attributes):
 def create_user_token(fp, se):
   return hashlib.sha256(("***REMOVED***{}-{}***REMOVED***".format(se, fp)).encode('utf-8')).hexdigest()
 
+def get_questions_and_answers(fp, se, hide_answers=True):
+  question = Question(client)
+  questions = question.get_all()
+  question_ids = set(questions.keys())
+  question_ids_sorted = sorted(question_ids)
+  response_question = {}
+
+  # Hide the choice meaning
+  for key, value in questions.items():
+    q = question_ids_sorted.index(key)
+    response_question[q] = {
+      "id": key,
+      "question": value.get("question"),
+      "choice": []
+    }
+    # TODO: Check if array
+    for choice in value.get("choice"):
+      if hide_answers:
+        response_question[q]['choice'].append({
+          "id": choice.get("id"),
+          "text": choice.get("text")
+        })
+      else:
+        response_question[q]['choice'].append(choice)
+
+  user = User(client, fingerprint=fp, session=se)
+
+  answer = Answer(client, user)
+  answers = answer.get_batch(questions=list(question_ids))
+  answered_question_ids = set(answers.keys())
+  response_answer = {}
+
+  if question_ids != answered_question_ids:
+    return create_response(**{
+      "status": "error",
+      "message": "Invalid request (err:6)"
+    })
+
+  for key, value in answers.items():
+    q = question_ids_sorted.index(key)
+    response_answer[q] = {
+      "qid": key,
+      "answer": value.get("answer"),
+      "id": value.get("id"),
+    }
+
+  unanswered_question_ids = question_ids.difference(answered_question_ids)
+  last_unanswered_question_id = None
+
+  if unanswered_question_ids: 
+    last_unanswered_question_id = sorted(unanswered_question_ids)[0]
+    last_unanswered_question_id = question_ids_sorted.index(last_unanswered_question_id)
+
+  return {
+    'questions': response_question,
+    'answers': response_answer,
+    'last_unanswered_qid': last_unanswered_question_id
+  }
+
 def get_session(request):
   """
   Payload format:
@@ -225,50 +284,11 @@ def get_questionnaire(request):
       "message": "Invalid request (err:3)"
     })
 
-  question = Question(client)
-  questions = question.get_all()
-  question_ids = set(questions.keys())
-  question_ids_sorted = sorted(question_ids)
-  response['questions'] = {}
+  qna = get_questions_and_answers(payload['fp'], payload['se'], True)
 
-  # Hide the choice meaning
-  for key, value in questions.items():
-    q = question_ids_sorted.index(key)
-    response['questions'][q] = {
-      "id": key,
-      "question": value.get("question"),
-      "choice": []
-    }
-    # TODO: Check if array
-    for choice in value.get("choice"):
-      response['questions'][q]['choice'].append({
-        "id": choice.get("id"),
-        "text": choice.get("text")
-      })
-
-  user = User(client, fingerprint=payload['fp'], session=payload['se'])
-
-  answer = Answer(client, user)
-  answers = answer.get_batch(questions=list(question_ids))
-  answered_question_ids = set(answers.keys())
-  response['answers'] = {}
-
-  for key, value in answers.items():
-    q = question_ids_sorted.index(key)
-    response['answers'][q] = {
-      "qid": key,
-      "answer": value.get("answer"),
-      "id": value.get("id"),
-    }
-
-  unanswered_question_ids = question_ids.difference(answered_question_ids)
-  last_unanswered_question_id = None
-
-  if unanswered_question_ids: 
-    last_unanswered_question_id = sorted(unanswered_question_ids)[0]
-    last_unanswered_question_id = question_ids_sorted.index(last_unanswered_question_id)
-
-  response['last_unanswered'] = last_unanswered_question_id
+  response['questions'] = qna['questions']
+  response['answers'] = qna['answers']
+  response['last_unanswered'] = qna['last_unanswered_qid']
   response['status'] = 'ok'
 
   return create_response(**response)
@@ -298,40 +318,42 @@ def get_result(request):
       "message": "Invalid request (err:3)"
     })
 
-  question = Question(client)
-  questions = question.get_all()
-  question_ids = set(questions.keys())
-
-  user = User(client, fingerprint=payload['fp'], session=payload['se'])
-
-  answer = Answer(client, user)
-  answers = answer.get_batch(questions=list(question_ids))
-
-  if question_ids != set(answers.keys()):
-    return create_response(**{
-      "status": "error",
-      "message": "Invalid request (err:6)"
-    })
+  qna = get_questions_and_answers(payload['fp'], payload['se'], False)
 
   result = {}
 
-  for question_id, value in questions.items():
-    answer_id = answers.get(question_id, {}).get('answer', -1)
+  for key, value in qna['questions'].items():
     choices = value.get('choice', [])
+    selected_answer = qna['answers'].get(key, {}).get('answer', -1)
 
     for choice in choices:
-      if int(choice.get('id', -1)) == int(answer_id):
+      if int(choice.get('id', -1)) == int(selected_answer):
         party = str(choice.get('result', -1))
         if party in result:
           result[party] += 1
         else:
           result[party] = 1
 
+  score_map = {}
+  score_order = []
+
+  for key, value in result.items():
+    if value in score_map:
+      score_map[value].append(key)
+    else:
+      score_map[value] = [key]
+      score_order.append(value)
+
+  score_order.sort()
+
   response['status'] = 'ok'
   response['stance'] = result
-  response['questions'] = questions
-
-  print(response)
+  response['result'] = {
+    'map': score_map,
+    'order': score_order
+  }
+  response['questions'] = qna['questions']
+  response['answers'] = qna['answers']
 
   return create_response(**response)
 
@@ -382,49 +404,3 @@ def post_answer(request):
     answer.create()
 
   return create_response(**{"status": "ok"})
-
-
-# user = User(client, fingerprint=fp)
-# user.get()
-
-# question = Question(client)
-# questions = question.get()
-# question_ids = set(questions.keys())
-
-# answer = Answer(client, user)
-# answers = answer.get_batch(questions=list(question_ids))
-
-# answer = Answer(client, user, 5633226290757632, 1)
-# answer.create()
-
-# survey = Survey(client, 'Pilpres Test')
-# survey.create()
-
-# choice = [
-#   {
-#     'id': 1,
-#     'text': 'Pantai',
-#     'result': 1,
-#     'reason': 'text and <html/>',
-#     'sources': ['http://', 'http://']
-#   },
-#   {
-#     'id': 2,
-#     'text': 'Gunung',
-#     'result': 2,
-#     'reason': 'text and <html/>',
-#     'sources': ['http://', 'http://']
-#   },
-#   {
-#     'id': 3,
-#     'text': 'Neraka',
-#     'result': 0,
-#     'reason': 'text and <html/>',
-#     'sources': ['http://', 'http://']
-#   }
-# ]
-
-# question = Question(client, 'Kemana Anda ingin pergi berlibur?', choice)
-# question.create()
-
-# questions = question.get()

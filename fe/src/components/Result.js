@@ -34,17 +34,17 @@ export default class extends Component {
           </div>
         </div>
 
-        <div className="row">
-          <div className="col-12 offset-md-3 col-md-6 result-other">
-            <span class="badge badge-pill badge-secondary">20%</span> aspirasi dipenuhi pasangan nomor 05
-          </div>
-        </div>
-
-        <div className="row">
-          <div className="col-12 offset-md-3 col-md-6 result-other">
-            <span class="badge badge-pill badge-secondary">20%</span> aspirasi tidak dipenuhi oleh manapun
-          </div>
-        </div>
+        {
+          this.state.result.order.map((score, index) => {
+            return (
+              <div key={index} className="row">
+                <div className="col-12 offset-md-3 col-md-6 result-other">
+                  <span className="badge badge-pill badge-secondary">{score}</span> aspirasi ???
+                </div>
+              </div>
+            );
+          })
+        }
 
         <br/>
 

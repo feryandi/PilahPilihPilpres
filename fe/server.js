@@ -15,6 +15,7 @@ const port = dev ? 3000 : 8080;
 const session = require('./api/session');
 const question = require('./api/question');
 const answer = require('./api/answer');
+const result = require('./api/result');
 
 app.prepare().then(() => {
   const server = express();
@@ -28,6 +29,7 @@ app.prepare().then(() => {
   server.use('/api/session', session);
   server.use('/api/question', question);
   server.use('/api/answer', answer);
+  server.use('/api/result', result);
 
   server.get('*', (req, res) => { return handle(req, res); });
 
