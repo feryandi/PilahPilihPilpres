@@ -9,6 +9,7 @@ export default class extends Component {
     super(props);
     this.state = {
         ...this.props,
+        loading: true,
     };
   }
 
@@ -43,6 +44,8 @@ export default class extends Component {
         });
       }
     }
+
+    this.setState({ loading: false })
   }
 
   getUserIdentity() {
@@ -86,7 +89,15 @@ export default class extends Component {
             </div>
             <div className="col">
               <Link href='/question'>
-                <button type="button" className="btn btn-danger btn-block"><b>MULAI</b></button>
+                <button
+                  type="button"
+                  className="btn btn-danger btn-block"
+                  disabled={this.state.loading}
+                  onClick={() => { this.setState({ loading: true }) }}>
+                    <b>
+                      { this.state.loading ? `MEMPERSIAPKAN...` : `MULAI` }
+                    </b>
+                  </button>
               </Link>
             </div>
             <div className="col">

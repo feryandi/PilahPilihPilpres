@@ -2,10 +2,15 @@ import Question from '../components/Question'
 import fetch from 'isomorphic-fetch';
 import nookies from 'nookies'
 import Router from 'next/router'
+import Layout from '../components/Layout';
+import Error from './_error';
 
 const Questionnaire = (props) => {
+  if (props.status != 'ok') return(<Error/>)
   return(
-    <Question {...props}/>
+    <Layout>
+      <Question {...props}/>
+    </Layout>
   )
 }
 
@@ -27,7 +32,7 @@ Questionnaire.getInitialProps = async function(context) {
     }
   }).then(res => res.json());
 
-  if (result.last_unanswered == null) {
+  if (result.status == 'ok' && result.last_unanswered == null) {
     if (context.res) {
       context.res.writeHead(302, {
         Location: '/result'

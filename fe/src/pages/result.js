@@ -1,9 +1,12 @@
 import Final from '../components/Final'
 import nookies from 'nookies'
+import Layout from '../components/Layout';
 
 const ResultPage = (props) => {
   return(
-    <Final {...props}/>
+    <Layout>
+      <Final {...props}/>
+    </Layout>
   )
 }
 

@@ -79,7 +79,17 @@ export default class extends Component {
         </div>
 
         {
-          this.state.result.order.map((score, index) => {
+          this.state.result.order.length === 1 && this.state.result.order[0] === 0 &&
+            <div className="row">
+              <div className="col-12 offset-md-3 col-md-6 result-other text-center">
+                <b>Sepertinya Anda tidak memilih apapun?</b><br/>
+                Pilih jawaban yang sesuai dengan aspirasi Anda, dan temukan calon presiden - wakil presiden yang memenuhi aspirasi Anda.
+              </div>
+            </div>
+        }
+
+        {
+          this.state.result.order.map((score) => {
             if (parseInt(score) <= 0) {
               return;
             }

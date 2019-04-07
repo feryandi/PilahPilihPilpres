@@ -34,12 +34,15 @@ export default class extends Component {
               <div className="col-2 col-md">
               </div>
               <div className="col">
+              {
+                !(this.state.result.order.length === 1 && this.state.result.order[0] === 0) &&
                 <button
                   type="button"
                   className="btn btn-danger btn-block"
                   onClick={() => { this.setState({ is_answer: true, is_result: false }) }}>
                   <b>PENJELASAN</b>
                 </button>
+              }
               </div>
               <div className="col-2 col-md">
                 <button
