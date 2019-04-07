@@ -18,9 +18,6 @@ export default class extends Component {
   componentDidMount() {}
 
   currentQuestion() {
-    console.log(this.state.current_question)
-    console.log(this.state.questions)
-    console.log(this.state.questions[this.state.current_question])
     return this.state.questions[this.state.current_question];
   }
 
@@ -71,7 +68,7 @@ export default class extends Component {
         <div className="row">
           <div className="col-12 col-md-1">
             <h2>
-              <span className="badge badge-secondary">{ this.state.current_question }</span>
+              <span className="badge badge-secondary">{ this.state.current_question + 1 }</span>
             </h2>
           </div>
           <div className="col">
@@ -107,7 +104,7 @@ export default class extends Component {
         }) }
 
         <div className="row">
-          <div className="col-2 col-md text-left">
+          <div className="col-3 col-md text-left">
             { this.hasPrevQuestion() &&
               <button
                 type="button"
@@ -118,19 +115,12 @@ export default class extends Component {
             }
           </div>
           <div className="col col-md">
-            <Link href='/result'>
-              <button
-                type="button"
-                className="btn btn-danger btn-block">
-                <b>KEMBALI KE HASIL</b>
-              </button>
-            </Link>
           </div>
-          <div className="col-2 col-md text-right">
+          <div className="col-3 col-md text-right">
             { this.hasNextQuestion() &&
               <button
                 type="button"
-                className="btn btn-danger btn-block"
+                className="btn btn-danger"
                 onClick={() => this.nextQuestion()}>
                 <i className="fas fa-arrow-circle-right"/>
               </button>

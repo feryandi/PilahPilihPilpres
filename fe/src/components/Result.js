@@ -110,21 +110,7 @@ export default class extends Component {
               })
             )
           })
-        }
-
-        <br/>
-
-        <div className="row">
-          <div className="col-2 col-md">
-          </div>
-          <div className="col">
-            <Link href='/answer'>
-              <button type="button" className="btn btn-danger btn-block"><b>PENJELASAN</b></button>
-            </Link>
-          </div>
-          <div className="col-2 col-md">
-          </div>
-        </div>          
+        }        
       </div>
     )
   }
