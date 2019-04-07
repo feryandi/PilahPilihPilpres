@@ -19,6 +19,15 @@ body {
     margin: auto;
 }
 
+.grecaptcha-badge {
+    visibility: hidden;
+}
+
+.grecaptcha-text {
+    font-size: 0.7rem;
+    color: rgb(130, 130, 130);
+}
+
 .box-radio {
     /* display: -ms-flexbox;
     display: flex;

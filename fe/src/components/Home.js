@@ -99,6 +99,10 @@ export default class extends Component {
                     </b>
                   </button>
               </Link>
+              <br/>
+              <p className="grecaptcha-text">
+                Dengan mengisi kuis, Anda setuju dengan <Link href='/privacy'>Kebijakan Privasi</Link> kami.
+              </p>
             </div>
             <div className="col">
             </div>

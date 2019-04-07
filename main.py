@@ -412,3 +412,45 @@ def post_answer(request):
     answer.create()
 
   return create_response(**{"status": "ok"})
+
+
+# choice = [
+#   {
+#     'id': 1,
+#     'text': 'Gender-neutral merits. Women\'s involvement will naturally come later',
+#     'result': 2,
+#     'reason': 'text and <html/>',
+#     'sources': ['http://', 'http://']
+#   },
+#   {
+#     'id': 2,
+#     'text': 'Institutionalized recruitment of women. Merited women are out there, waiting to be recruited',
+#     'result': 1,
+#     'reason': 'text and <html/>',
+#     'sources': ['http://', 'http://']
+#   }
+# ]
+
+# question = Question(client, 'When it comes to recruitment of women in politics & public offices, what would you prioritize first?', choice)
+# question.create()
+
+
+choice = [
+  {
+    'id': 1,
+    'text': 'Membangun pelatihan bagi para pengangguran agar siap bersaing di dunia kerja dan memberi insentif sementara selama mereka masih menganggur',
+    'result': 1,
+    'reason': 'text and <html/>',
+    'sources': ['http://', 'http://']
+  },
+  {
+    'id': 2,
+    'text': 'Menciptakan lapangan kerja baru berupa industri yang dikelola oleh negara',
+    'result': 2,
+    'reason': 'text and <html/>',
+    'sources': ['http://', 'http://']
+  }
+]
+
+question = Question(client, 'Bagaimana sebaiknya pemerintah bersikap dalam mengurai masalah pengangguran?', choice)
+question.create()

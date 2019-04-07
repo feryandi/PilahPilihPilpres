@@ -24,7 +24,7 @@ Questionnaire.getInitialProps = async function(context) {
   }
 
   // TODO: Only absolute URL
-  let result = await fetch(`http://localhost:3000/api/question/get`, {
+  let result = await fetch(`https://survey-dot-hoax-analyzer.appspot.com/api/question/get`, {
     method: 'POST',
     body: JSON.stringify(payload),
     headers: {

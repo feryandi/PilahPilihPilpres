@@ -21,7 +21,8 @@ export default class extends Component {
         rendered: false,
         verified: false,
         submitted: false,
-        executing: false
+        executing: false,
+        sending: false,
     };
     this.captcha = null;
   }
@@ -62,6 +63,7 @@ export default class extends Component {
     }
 
     if (!this.hasNextQuestion()) {
+      this.setState({ sending: true });
       this.captcha.execute();
     } else {
       this.setState({
@@ -121,7 +123,7 @@ export default class extends Component {
     }
 
     // TODO: Only absolute URL
-    await fetch(`http://localhost:3000/api/answer/send`, {
+    await fetch(`https://survey-dot-hoax-analyzer.appspot.com/api/answer/send`, {
       method: 'POST',
       body: JSON.stringify(payload),
       headers: {
@@ -204,6 +206,7 @@ export default class extends Component {
               <button
                 type="button"
                 className="btn btn-danger"
+                disabled={this.state.sending}
                 onClick={() => this.prevQuestion()}>
                 <i className="fas fa-arrow-circle-left"/>
               </button>
@@ -222,10 +225,12 @@ export default class extends Component {
             <button 
               type="button"
               className="btn btn-danger"
+              disabled={this.state.sending}
               onClick={() => {
                 this.nextQuestion();
               }}>
               { !this.hasAnswer() && <b>LEWATI&nbsp;&nbsp;&nbsp;</b> }
+              { this.state.sending && <b>...MENGIRIM&nbsp;</b>}
               
               { this.hasNextQuestion() ? (
                 <i className="fas fa-arrow-circle-right"/>
@@ -233,6 +238,16 @@ export default class extends Component {
                 <i className="fas fa-check-circle"></i>
               )}
             </button>
+          </div>
+        </div>
+        <br/>
+        <div className="row">
+          <div className="col">
+            <div className="grecaptcha-text">
+              Dilindungi oleh reCAPTCHA.<br/>
+              <a href="https://policies.google.com/privacy">Privasi</a> dan&nbsp;
+              <a href="https://policies.google.com/terms">Ketentuan</a> Google berlaku.
+            </div>
           </div>
         </div>
       </div>
