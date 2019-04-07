@@ -86,19 +86,24 @@ class User:
     self.session = session
 
   def create(self):
-    self.get()
+    self.session = str(uuid.uuid4())
+    key = self.client.key('User', self.fingerprint)
+    entity = datastore.Entity(key=key)
+    entity.update({
+        'fingerprint': self.fingerprint,
+        'session': self.session,
+    })
+    self.client.put(entity)
 
-    if self.session is None:
-      self.session = str(uuid.uuid4())
-      key = self.client.key('User', self.fingerprint)
-      entity = datastore.Entity(key=key)
-      entity.update({
-          'fingerprint': self.fingerprint,
-          'userAgent': self.user_agent,
-          'session': self.session,
-          'ip': self.ip
-      })
-      self.client.put(entity)
+    key = self.client.key('UserHistory', self.session)
+    entity = datastore.Entity(key=key)
+    entity.update({
+        'fingerprint': self.fingerprint,
+        'userAgent': self.user_agent,
+        'session': self.session,
+        'ip': self.ip
+    })
+    self.client.put(entity)
 
   def get(self):
     key = self.client.key('User', self.fingerprint)

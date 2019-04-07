@@ -58,6 +58,18 @@ export default class extends Component {
     }
   }
 
+  currentAnswer() {
+    return this.state.answers[this.state.current_question];
+  }
+
+  isSelectedAnswer(id) {
+    const answer = this.currentAnswer();
+    if (typeof answer !== 'undefined' && answer.answer === id) {
+      return true;
+    }
+    return false;
+  }
+
   failure() {
       return('Invalid input')
   }
@@ -84,18 +96,26 @@ export default class extends Component {
           return(
             <React.Fragment>
               <div key={ choice.id } className="card">
-                <div className="card-body">
-                  <h5>{ choice.text }</h5>
+                <div className="card-body">               
+                  <h5>
+                    {
+                      this.isSelectedAnswer(choice.id) && (
+                        <i className="fas fa-check-circle answer-selected">&nbsp;</i>
+                      )
+                    }
+                    <b>{ choice.text }</b>
+                  </h5>
                   <div>{ choice.reason }</div>
                   <br/>
                   <div><i>Sumber</i></div>
                   <ul>
                     {
-                      choice.sources.map((source) => {
-                        return(<li>{ source }</li>);
+                      choice.sources.map((source, index) => {
+                        return(<li key={choice.id + "-" + index}>{ source }</li>);
                       })
                     }
                   </ul>
+
                 </div>
               </div>
               <br/>

@@ -57,6 +57,10 @@ export default class extends Component {
   async nextQuestion() {
     const last_unanswered = this.state.last_unanswered;
 
+    if (!this.hasAnswer()) {
+      this.skipAnswer()
+    }
+
     if (!this.hasNextQuestion()) {
       this.captcha.execute();
     } else {
@@ -94,6 +98,17 @@ export default class extends Component {
     this.setState(answers);
   }
 
+  skipAnswer() {
+    const answer = {
+      qid: this.currentQuestion().id,
+      answer: -1
+    };
+
+    let answers = this.state.answers;
+    answers[this.state.last_unanswered] = answer;
+    this.setState(answers);
+  }
+
   async sendAnswers(token) {
     const cookies = nookies.get();
 
@@ -104,8 +119,6 @@ export default class extends Component {
       reCaptcha: token,
       answers: this.state.answers
     }
-
-    console.log(payload)
 
     // TODO: Only absolute URL
     await fetch(`http://localhost:3000/api/answer/send`, {
@@ -128,13 +141,6 @@ export default class extends Component {
   }
 
   componentDidMount() {}
-
-  handleChange = value => {
-    console.log("Captcha value:", value);
-    this.setState({ value });
-    // if value is null recaptcha expired
-    if (value === null) this.setState({ expired: "true" });
-  }
 
   onVerify = () => async (token) => {
     this.setState({ token, verified: true });
