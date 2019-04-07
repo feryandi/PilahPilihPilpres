@@ -28,6 +28,12 @@ body {
     color: rgb(130, 130, 130);
 }
 
+.question-progress {
+    padding: 0.5rem 0;
+    font-size: 0.9rem;
+    color: rgb(65, 65, 65);
+}
+
 .box-radio {
     /* display: -ms-flexbox;
     display: flex;
@@ -100,4 +106,16 @@ body {
 
 .answer-selected {
     color: #c82333;
+}
+
+.home-title {
+    padding-left: 1rem;
+    border-left: 0.8rem solid #c82333;
+}
+
+@media all and (max-width: 1024px) {
+    .question-mobile {
+        font-size: 1.7rem;
+        padding-bottom: 1rem;
+    }    
 }

@@ -31,6 +31,10 @@ export default class extends Component {
     return this.state.questions[this.state.last_unanswered];
   }
 
+  currentChoice() {
+    return this.currentQuestion().choice;
+  }
+
   hasPrevQuestion() {
     const last_unanswered = this.state.last_unanswered;
     return last_unanswered - 1 >= 0
@@ -78,7 +82,7 @@ export default class extends Component {
   }
 
   hasAnswer() {
-    return typeof this.currentAnswer() !== 'undefined';
+    return typeof this.currentAnswer() !== 'undefined' && this.currentAnswer().answer != -1;
   }
 
   isSelectedAnswer(id) {
@@ -123,7 +127,8 @@ export default class extends Component {
     }
 
     // TODO: Only absolute URL
-    await fetch(`https://survey-dot-hoax-analyzer.appspot.com/api/answer/send`, {
+//    await fetch(`https://survey-dot-hoax-analyzer.appspot.com/api/answer/send`, {    
+    await fetch(`http://localhost:3000/api/answer/send`, {
       method: 'POST',
       body: JSON.stringify(payload),
       headers: {
@@ -168,7 +173,7 @@ export default class extends Component {
             </h2>
           </div>
           <div className="col">
-            <h2>
+            <h2 className="question-mobile">
               { this.currentQuestion().question }
             </h2>
             <p>{ this.currentQuestion().helper }</p>
@@ -176,7 +181,7 @@ export default class extends Component {
         </div>
 
         <div className="row text-left d-block">
-          { this.currentQuestion().choice.map((choice, index) => {
+          { this.currentChoice().map((choice, index) => {
             return(
               <div key={ choice.id } className="col">
                 <div className="custom-control custom-radio box-radio">
@@ -212,7 +217,8 @@ export default class extends Component {
               </button>
             }
           </div>
-          <div className="col">
+          <div className="col question-progress text-center">
+            { this.state.last_unanswered + 1 } dari { Object.keys(this.state.questions).length }
           </div>
           <div className="col text-right">
             <Reaptcha

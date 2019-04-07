@@ -71,27 +71,28 @@ export default class extends Component {
 
   render() {
       return(
-        <div className="text-center">
+        <div>
           <div className="row">
             <div className="col">
-              <h2>Siapa Presiden Pilihanmu?</h2>
+              <h2 className="home-title">Siapa Presiden Pilihanmu?</h2>
             </div>
           </div>
           <div className="row">
             <div className="col">
-              <p>Cari tahu siapa calon presiden dan wakil presiden yang mewakili aspirasimu melalui pertanyaan-pertanyaan yang kami sediakan</p>
+              <p>Cari tahu siapa calon presiden dan wakil presiden yang mewakili aspirasimu melalui pertanyaan-pertanyaan yang kami sediakan.</p>
+              <p className="grecaptcha-text">
+              Situs ini <b>tidak berafiliasi</b> dengan pemerintah, partai politik, KPU, maupun berbagai pihak yang berkepentingan dalam pemilu. 
+              </p>
               <br/>
               <br/>
             </div>
           </div>
-          <div className="row">
-            <div className="col">
-            </div>
-            <div className="col">
+          <div className="row text-center">
+            <div className="col offset-md-3 col-md-6">
               <Link href='/question'>
                 <button
                   type="button"
-                  className="btn btn-danger btn-block"
+                  className="btn btn-lg btn-danger btn-block"
                   disabled={this.state.loading}
                   onClick={() => { this.setState({ loading: true }) }}>
                     <b>
@@ -104,9 +105,7 @@ export default class extends Component {
                 Dengan mengisi kuis, Anda setuju dengan <Link href='/privacy'>Kebijakan Privasi</Link> kami.
               </p>
             </div>
-            <div className="col">
-            </div>
-          </div>          
+          </div>
         </div>
       );
   }

@@ -4,6 +4,7 @@ import uuid
 import flask
 import time
 import hashlib
+import random
 
 SURVEY_ID = 1
 
@@ -73,7 +74,6 @@ class Question:
         "choice": entity.get('choice')
       }
 
-    print(questions)
     return questions
 
 
@@ -143,7 +143,6 @@ class Answer:
           "answer": result.get('answer')
         }
 
-    print(answers)
     return answers
 
 
@@ -195,14 +194,18 @@ def get_questions_and_answers(fp, se, hide_answers=True):
       "choice": []
     }
     # TODO: Check if array
+    choices = []
     for choice in value.get("choice"):
       if hide_answers:
-        response_question[q]['choice'].append({
+        choices.append({
           "id": choice.get("id"),
           "text": choice.get("text")
         })
       else:
-        response_question[q]['choice'].append(choice)
+        choices.append(choice)
+      
+      random.shuffle(choices)
+      response_question[q]['choice'] = choices
 
   user = User(client, fingerprint=fp, session=se)
 
@@ -210,12 +213,6 @@ def get_questions_and_answers(fp, se, hide_answers=True):
   answers = answer.get_batch(questions=list(question_ids))
   answered_question_ids = set(answers.keys())
   response_answer = {}
-
-  if question_ids != answered_question_ids:
-    return create_response(**{
-      "status": "error",
-      "message": "Invalid request (err:6)"
-    })
 
   for key, value in answers.items():
     q = question_ids_sorted.index(key)
@@ -273,7 +270,12 @@ def get_questionnaire(request):
     "to": "sha256"
   }
   """
-  payload = request.get_json()
+  # payload = request.get_json()
+  payload = {
+    "fp": "abcdefg",
+    "se": "f836c833-9bdc-4cd4-9a8d-37218ec0b634",
+    "to": "5d326faba2da05ec2a8f12ad20ff3e3219f6114e3a7d8b080c62135d77062da9"
+  }
 
   validation = validate_request(payload, ['fp', 'se', 'to'])
   if validation is not None:
@@ -365,6 +367,7 @@ def get_result(request):
 
   return create_response(**response)
 
+get_questionnaire(None)
 
 def post_answer(request):
   """
@@ -435,22 +438,22 @@ def post_answer(request):
 # question.create()
 
 
-choice = [
-  {
-    'id': 1,
-    'text': 'Membangun pelatihan bagi para pengangguran agar siap bersaing di dunia kerja dan memberi insentif sementara selama mereka masih menganggur',
-    'result': 1,
-    'reason': 'text and <html/>',
-    'sources': ['http://', 'http://']
-  },
-  {
-    'id': 2,
-    'text': 'Menciptakan lapangan kerja baru berupa industri yang dikelola oleh negara',
-    'result': 2,
-    'reason': 'text and <html/>',
-    'sources': ['http://', 'http://']
-  }
-]
+# choice = [
+#   {
+#     'id': 1,
+#     'text': 'Membangun pelatihan bagi para pengangguran agar siap bersaing di dunia kerja dan memberi insentif sementara selama mereka masih menganggur',
+#     'result': 1,
+#     'reason': 'text and <html/>',
+#     'sources': ['http://', 'http://']
+#   },
+#   {
+#     'id': 2,
+#     'text': 'Menciptakan lapangan kerja baru berupa industri yang dikelola oleh negara',
+#     'result': 2,
+#     'reason': 'text and <html/>',
+#     'sources': ['http://', 'http://']
+#   }
+# ]
 
-question = Question(client, 'Bagaimana sebaiknya pemerintah bersikap dalam mengurai masalah pengangguran?', choice)
-question.create()
+# question = Question(client, 'Bagaimana sebaiknya pemerintah bersikap dalam mengurai masalah pengangguran?', choice)
+# question.create()
