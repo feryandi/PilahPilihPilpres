@@ -145,10 +145,7 @@ class Answer:
 
     return answers
 
-
 client = datastore.Client(namespace='survey')
-
-fp = 'abcdefg'
 
 ### Functions definitions
 
@@ -334,15 +331,17 @@ def get_result(request):
     selected_answer = qna['answers'].get(key, {}).get('answer', -1)
 
     for choice in choices:
-      party = str(choice.get('result', -1))
-      if int(choice.get('id', -1)) == int(selected_answer):
-        if party in result:
-          result[party] += 1
+      parties = choice.get('result', [])
+      for party in parties:
+        p = str(party)
+        if int(choice.get('id', -1)) == int(selected_answer):
+          if p in result:
+            result[p] += 1
+          else:
+            result[p] = 1
         else:
-          result[party] = 1
-      else:
-        if party not in result:
-          result[party] = 0
+          if p not in result:
+            result[p] = 0
 
   score_map = {}
   score_order = []
@@ -367,7 +366,6 @@ def get_result(request):
 
   return create_response(**response)
 
-get_questionnaire(None)
 
 def post_answer(request):
   """
@@ -415,45 +413,3 @@ def post_answer(request):
     answer.create()
 
   return create_response(**{"status": "ok"})
-
-
-# choice = [
-#   {
-#     'id': 1,
-#     'text': 'Gender-neutral merits. Women\'s involvement will naturally come later',
-#     'result': 2,
-#     'reason': 'text and <html/>',
-#     'sources': ['http://', 'http://']
-#   },
-#   {
-#     'id': 2,
-#     'text': 'Institutionalized recruitment of women. Merited women are out there, waiting to be recruited',
-#     'result': 1,
-#     'reason': 'text and <html/>',
-#     'sources': ['http://', 'http://']
-#   }
-# ]
-
-# question = Question(client, 'When it comes to recruitment of women in politics & public offices, what would you prioritize first?', choice)
-# question.create()
-
-
-# choice = [
-#   {
-#     'id': 1,
-#     'text': 'Membangun pelatihan bagi para pengangguran agar siap bersaing di dunia kerja dan memberi insentif sementara selama mereka masih menganggur',
-#     'result': 1,
-#     'reason': 'text and <html/>',
-#     'sources': ['http://', 'http://']
-#   },
-#   {
-#     'id': 2,
-#     'text': 'Menciptakan lapangan kerja baru berupa industri yang dikelola oleh negara',
-#     'result': 2,
-#     'reason': 'text and <html/>',
-#     'sources': ['http://', 'http://']
-#   }
-# ]
-
-# question = Question(client, 'Bagaimana sebaiknya pemerintah bersikap dalam mengurai masalah pengangguran?', choice)
-# question.create()
