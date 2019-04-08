@@ -31,7 +31,15 @@ app.prepare().then(() => {
   server.use('/api/answer', answer);
   server.use('/api/result', result);
 
-  server.get('*', (req, res) => { return handle(req, res); });
+  server.get('*', (req, res) => {
+    const host = req.headers.host;
+
+    if (host.startsWith("localhost:") || host == "pilpres.hoaxanalyzer.com") {
+      return handle(req, res); 
+    }
+    
+    res.redirect("https://pilpres.hoaxanalyzer.com")
+  });
 
   server.listen(port, (err) => {
     if (err) throw err;

@@ -104,8 +104,14 @@ body {
     padding-right: 0;
 }
 
+.answer-unselected {
+    background-color: #fff;
+}
+
 .answer-selected {
-    color: #c82333;
+    background-color: #c82333;
+    color: #fff;
+    font-weight: 700;
 }
 
 .home-title {

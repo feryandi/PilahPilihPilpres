@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import Link from 'next/link'
 
 export default class extends Component {
   static propTypes = {
@@ -11,7 +10,16 @@ export default class extends Component {
     super(props);
     this.state = {
         ...this.props,
-        current_question: 0
+        current_question: 0,
+        showing_answer: 0,
+        candidates: {
+          1: {
+            name: 'Jokowi-Amin',
+          },
+          2: {
+            name: 'Prabowo-Sandi',
+          }
+        }
     };
   }
 
@@ -33,7 +41,8 @@ export default class extends Component {
 
     } else {
       this.setState({
-        current_question: current_question - 1
+        current_question: current_question - 1,
+        showing_answer: 0
       });
       window.scrollTo(0, 0);
     }
@@ -52,7 +61,8 @@ export default class extends Component {
 
     } else {
       this.setState({
-        current_question: current_question + 1
+        current_question: current_question + 1,
+        showing_answer: 0
       });
       window.scrollTo(0, 0);
     }
@@ -91,31 +101,50 @@ export default class extends Component {
             <br/>
           </div>
         </div>
-      
+    
         { this.currentQuestion().choice.map((choice, index) => {
           return(
             <React.Fragment>
-              <div key={ choice.id } className="card">
-                <div className="card-body">               
-                  <h5>
-                    {
-                      this.isSelectedAnswer(choice.id) && (
-                        <i className="fas fa-check-circle answer-selected">&nbsp;</i>
-                      )
-                    }
-                    <b>{ choice.text }</b>
-                  </h5>
+              <div
+                key={ choice.id }
+                className="card">
+                <div 
+                  className={"card-header text-center " + (this.isSelectedAnswer(choice.id) ? "answer-selected":"answer-unselected")}
+                  onClick={() => { this.setState({ showing_answer: index }) }}>
+                  { choice.text }
+                </div>
+                
+                <div
+                  className="card-body"
+                  style={{ display: this.state.showing_answer == index ? 'block':'none'}}>
+
+                  <div class="alert alert-secondary" role="alert">
+                    <small>Jawaban ini sependapat dengan <b>{ choice.result.map((result, index) => {
+                      let separator = '.';
+                      if (index < choice.result.length - 1) {
+                        separator = ', ';
+                      }
+                      const candidate = this.state.candidates[result];
+                      if (candidate == null) {
+                        return ('tidak ada satupun calon' + separator)
+                      }
+                      return (candidate.name + separator)
+                    }) }</b>
+                    </small>
+                  </div>
                   <div>{ choice.reason }</div>
                   <br/>
-                  <div><i>Sumber</i></div>
-                  <ul>
-                    {
-                      choice.sources.map((source, index) => {
-                        return(<li key={choice.id + "-" + index}>{ source }</li>);
-                      })
-                    }
-                  </ul>
-
+                  <div>
+                    <small><i>Sumber dan referensi:</i>
+                    <ul>
+                      {
+                        choice.sources.map((source, index) => {
+                          return(<li key={choice.id + "-" + index}>{ source }</li>);
+                        })
+                      }
+                    </ul>
+                    </small>
+                  </div>
                 </div>
               </div>
               <br/>

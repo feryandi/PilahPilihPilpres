@@ -90,15 +90,17 @@ export default class extends Component {
           <div className="row text-center">
             <div className="col offset-md-3 col-md-6">
               <Link href='/question'>
-                <button
-                  type="button"
-                  className="btn btn-lg btn-danger btn-block"
-                  disabled={this.state.loading}
-                  onClick={() => { this.setState({ loading: true }) }}>
-                    <b>
-                      { this.state.loading ? `MEMPERSIAPKAN...` : `MULAI` }
-                    </b>
+                <a style={{ textDecoration: 'none'}}>
+                  <button
+                    type="button"
+                    className="btn btn-lg btn-danger btn-block"
+                    disabled={this.state.loading}
+                    onClick={() => { this.setState({ loading: true }) }}>
+                      <b>
+                        { this.state.loading ? `MEMPERSIAPKAN...` : `MULAI` }
+                      </b>
                   </button>
+                </a>
               </Link>
               <br/>
               <p className="grecaptcha-text">
