@@ -29,7 +29,7 @@ Questionnaire.getInitialProps = async function(context) {
   }
 
   // TODO: Only absolute URL
-  await fetch(host + `/api/question/get`, {
+  let result = await fetch(host + `/api/question/get`, {
     method: 'POST',
     body: JSON.stringify(payload),
     headers: {

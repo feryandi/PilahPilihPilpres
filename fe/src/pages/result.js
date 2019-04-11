@@ -25,7 +25,7 @@ ResultPage.getInitialProps = async function(context) {
   }
 
   // TODO: Only absolute URL
-  await fetch(host + `/api/result/get`, {
+  let result = await fetch(host + `/api/result/get`, {
     method: 'POST',
     body: JSON.stringify(payload),
     headers: {
