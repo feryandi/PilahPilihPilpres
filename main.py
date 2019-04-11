@@ -36,10 +36,12 @@ class Question:
   ]
   """
 
-  def __init__(self, client, question=None, choice=None):
+  def __init__(self, client, question=None, choice=None, reason=None, sources=None):
     self.client = client
     self.question = question
     self.choice = choice
+    self.reason = reason
+    self.sources = sources
 
   def create(self):
     key = self.client.key('Survey', SURVEY_ID, 'Question')
@@ -47,6 +49,8 @@ class Question:
     entity.update({
         'question': self.question,
         'choice': self.choice,
+        'reason': self.reason,
+        'sources': self.sources,
     })
     self.client.put(entity)
 
@@ -56,6 +60,8 @@ class Question:
     if result is not None:
       self.question = result.get('question')
       self.choice = result.get('choice')
+      self.reason = result.get('reason')
+      self.sources = result.get('sources')
     return self
 
   def get_all(self, keys_only=False):
@@ -71,7 +77,9 @@ class Question:
     for entity in results:
       questions[entity.id] = {
         "question": entity.get('question'),
-        "choice": entity.get('choice')
+        "choice": entity.get('choice'),
+        "reason": entity.get('reason'),
+        "sources": entity.get('sources')
       }
 
     return questions
@@ -190,6 +198,11 @@ def get_questions_and_answers(fp, se, hide_answers=True):
       "question": value.get("question"),
       "choice": []
     }
+
+    if not hide_answers:
+      response_question[q]['sources'] = value.get('sources')
+      response_question[q]['reason'] = value.get('reason')
+
     # TODO: Check if array
     choices = []
     for choice in value.get("choice"):
