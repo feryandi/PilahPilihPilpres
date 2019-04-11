@@ -127,9 +127,13 @@ export default class extends Component {
       answers: this.state.answers
     }
 
+    let host = "http://localhost:3000"
+    if (process.env.NODE_ENV === 'production') {
+      host = "https://pilpres.hoaxanalyzer.com"
+    }
+
     // TODO: Only absolute URL
-//    await fetch(`https://survey-dot-hoax-analyzer.appspot.com/api/answer/send`, {    
-    await fetch(`http://localhost:3000/api/answer/send`, {
+    await fetch(host + `/api/answer/send`, {    
       method: 'POST',
       body: JSON.stringify(payload),
       headers: {

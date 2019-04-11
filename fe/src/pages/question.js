@@ -23,9 +23,13 @@ Questionnaire.getInitialProps = async function(context) {
     to: cookies['to']
   }
 
+  let host = "http://localhost:3000"
+  if (process.env.NODE_ENV === 'production') {
+    host = "https://pilpres.hoaxanalyzer.com"
+  }
+
   // TODO: Only absolute URL
-//  let result = await fetch(`https://survey-dot-hoax-analyzer.appspot.com/api/question/get`, {
-  let result = await fetch(`http://localhost:3000/api/question/get`, {
+  await fetch(host + `/api/question/get`, {
     method: 'POST',
     body: JSON.stringify(payload),
     headers: {
