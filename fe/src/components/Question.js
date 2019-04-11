@@ -4,6 +4,7 @@ import Link from 'next/link'
 import Router from 'next/router'
 import Reaptcha from 'reaptcha'
 import nookies from 'nookies'
+import ReactMarkdown from 'react-markdown'
 
 const _reCaptchaRef = React.createRef();
 
@@ -174,7 +175,8 @@ export default class extends Component {
           </div>
           <div className="col">
             <h2 className="question-mobile">
-              { this.currentQuestion().question }
+              <ReactMarkdown
+                source={ this.currentQuestion().question }/>              
             </h2>
             <p>{ this.currentQuestion().helper }</p>
           </div>

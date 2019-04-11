@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import ReactMarkdown from 'react-markdown'
 
 export default class extends Component {
   static propTypes = {
@@ -11,7 +12,6 @@ export default class extends Component {
     this.state = {
         ...this.props,
         current_question: 0,
-        showing_answer: 0,
         candidates: {
           1: {
             name: 'Jokowi-Amin',
@@ -95,7 +95,8 @@ export default class extends Component {
           </div>
           <div className="col">
             <h2>
-              { this.currentQuestion().question }
+              <ReactMarkdown
+                source={ this.currentQuestion().question }/>
             </h2>
             {/* <p>{ this.currentQuestion().helper }</p> */}
             <br/>
@@ -109,48 +110,59 @@ export default class extends Component {
                 key={ choice.id }
                 className="card">
                 <div 
-                  className={"card-header text-center " + (this.isSelectedAnswer(choice.id) ? "answer-selected":"answer-unselected")}
-                  onClick={() => { this.setState({ showing_answer: index }) }}>
-                  { choice.text }
-                </div>
-                
-                <div
-                  className="card-body"
-                  style={{ display: this.state.showing_answer == index ? 'block':'none'}}>
+                  className={"card-body text-center " + (this.isSelectedAnswer(choice.id) ? "answer-selected":"answer-unselected")}>
 
-                  <div class="alert alert-secondary" role="alert">
-                    <small>Jawaban ini sependapat dengan <b>{ choice.result.map((result, index) => {
-                      let separator = '.';
-                      if (index < choice.result.length - 1) {
-                        separator = ', ';
-                      }
-                      const candidate = this.state.candidates[result];
-                      if (candidate == null) {
-                        return ('tidak ada satupun calon' + separator)
-                      }
-                      return (candidate.name + separator)
-                    }) }</b>
-                    </small>
+                  <div class="row">
+                    <div class="col-12 col-md-8" style={{ display: 'flex', alignItems: 'center' }}>
+                      { choice.text }
+                    </div>
+                    <div class="col-12 col-md-4">
+                      <div class="alert alert-secondary" role="alert" style={{ marginBottom: 0 }}>
+                        <small>Jawaban ini sependapat dengan <b>{ choice.result.map((result, index) => {
+                          let separator = '.';
+                          if (index < choice.result.length - 1) {
+                            separator = ', ';
+                          }
+                          const candidate = this.state.candidates[result];
+                          if (candidate == null) {
+                            return ('tidak ada satupun calon' + separator)
+                          }
+                          return (candidate.name + separator)
+                        }) }</b>
+                        </small>
+                      </div>
+                    </div>
                   </div>
-                  <div>{ choice.reason }</div>
-                  <br/>
-                  <div>
-                    <small><i>Sumber dan referensi:</i>
-                    <ul>
-                      {
-                        choice.sources.map((source, index) => {
-                          return(<li key={choice.id + "-" + index}>{ source }</li>);
-                        })
-                      }
-                    </ul>
-                    </small>
-                  </div>
+                  
                 </div>
               </div>
               <br/>
             </React.Fragment>
           )
         }) }
+
+        <div className="card">
+          <div className="card-body">
+
+            <ReactMarkdown
+              source={ this.currentQuestion().reason }
+              linkTarget={'_blank'}/>
+            <br/>
+            <div>
+              <small><i>Sumber dan referensi:</i>
+              <ul>
+                {
+                  this.currentQuestion().sources && this.currentQuestion().sources.map((source, index) => {
+                    return(<li key={"source-" + index}>{ source }</li>);
+                  })
+                }
+              </ul>
+              </small>
+            </div>
+
+          </div>
+        </div>
+        <br/>
 
         <div className="row">
           <div className="col-3 col-md text-left">
