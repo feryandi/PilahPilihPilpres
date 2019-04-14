@@ -81,7 +81,7 @@ export default class extends Component {
             <div className="col">
               <p>Cari tahu siapa calon presiden dan wakil presiden yang mewakili aspirasimu melalui pertanyaan-pertanyaan yang kami sediakan.</p>
               <p className="grecaptcha-text">
-              Situs ini <b>tidak berafiliasi</b> dengan pemerintah, partai politik, KPU, maupun berbagai pihak yang berkepentingan dalam pemilu. 
+              Baca <Link href='/disclaimer'>disclaimer</Link> untuk mengetahui lebih lanjut mengenai kuis ini.
               </p>
               <br/>
               <br/>
@@ -104,7 +104,7 @@ export default class extends Component {
               </Link>
               <br/>
               <p className="grecaptcha-text">
-                Dengan mengisi kuis, Anda setuju dengan <Link href='/privacy'>Kebijakan Privasi</Link> kami.
+                {/* Dengan mengisi kuis, Anda setuju dengan <Link href='/disclaimer'>Disclaimer</Link> kami. */}
               </p>
             </div>
           </div>

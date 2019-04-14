@@ -148,7 +148,7 @@ export default class extends Component {
             <ReactMarkdown
               source={ this.currentQuestion().reason }
               linkTarget={'_blank'}/>
-            <div>
+            <div style={{ textAlign: 'left' }}>
               <small><i>Sumber dan referensi:</i>
               <ul>
                 {

@@ -2,6 +2,14 @@ html, body {
     min-height: 100vh;
 }
 
+a {
+    color: #c82333;
+}
+
+a:hover {
+    color: #dc3545;
+}
+
 body {
     display: -ms-flexbox;
     display: flex;
@@ -127,10 +135,6 @@ body {
     color: #383d41;
     background-color: #f3f3f5;
     border-color: #d6d8db;
-}
-
-.card-explanation a {
-    color: #c82333;
 }
 
 @media all and (max-width: 1024px) {

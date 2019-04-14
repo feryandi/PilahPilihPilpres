@@ -43,8 +43,8 @@ class Question:
     self.reason = reason
     self.sources = sources
 
-  def create(self):
-    key = self.client.key('Survey', SURVEY_ID, 'Question')
+  def create(self, qnum=None):
+    key = self.client.key('Survey', SURVEY_ID, 'Question', qnum)
     entity = datastore.Entity(key=key)
     entity.update({
         'question': self.question,
