@@ -148,12 +148,17 @@ export default class extends Component {
             <ReactMarkdown
               source={ this.currentQuestion().reason }
               linkTarget={'_blank'}/>
+
             <div style={{ textAlign: 'left' }}>
               <small><i>Sumber dan referensi:</i>
               <ul>
                 {
                   this.currentQuestion().sources && this.currentQuestion().sources.map((source, index) => {
-                    return(<li key={"source-" + index}>{ source }</li>);
+                    return(
+                      <li key={"source-" + index}>
+                        <ReactMarkdown source={ source } linkTarget={'_blank'}/>
+                      </li>
+                    );
                   })
                 }
               </ul>

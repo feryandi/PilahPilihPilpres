@@ -137,6 +137,10 @@ body {
     border-color: #d6d8db;
 }
 
+.card-explanation ul > li > p {
+    margin-bottom: 0px;
+}
+
 @media all and (max-width: 1024px) {
     .question-mobile {
         font-size: 1.7rem;
