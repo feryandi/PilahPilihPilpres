@@ -20,10 +20,18 @@ export default class extends Component {
           }
         }
     };
+
+    let answered = 0;
+    for (let key in this.props.answers) {
+      if (parseInt(this.props.answers[key]['answer']) >= 0) {
+        answered += 1;
+      }
+    }
+    this.state.answered = answered
   }
 
   getPercentage(score) {
-    return 100 * score / Object.keys(this.state.questions).length;
+    return (100 * score / this.state.answered).toFixed(0);
   }
 
   getWinningResult() {

@@ -242,7 +242,7 @@ export default class extends Component {
               onClick={() => {
                 this.nextQuestion();
               }}>
-              { !this.hasAnswer() && <b>LEWATI&nbsp;&nbsp;&nbsp;</b> }
+              { !this.hasAnswer() && !this.state.sending && <b>LEWATI&nbsp;&nbsp;&nbsp;</b> }
               { this.state.sending && <b>...MENGIRIM&nbsp;</b>}
               
               { this.hasNextQuestion() ? (
