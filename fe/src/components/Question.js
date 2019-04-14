@@ -195,6 +195,7 @@ export default class extends Component {
                     type="radio"
                     id={ choice.id }
                     name="answer"
+                    disabled={this.state.sending}
                     className="custom-control-input box-control-input"
                     onClick={ (e) => this.checkUnselectionAnswer(e) }
                     onChange={ (e) => this.selectAnswer(e) }

@@ -72,6 +72,10 @@ body {
     color: #fff;
 }
 
+.box-control-input:checked:disabled~.box-control-label {
+    background-color: #dc3545;
+}
+
 .question-number {
     border-radius: 1rem;
     background-color: #c82333;
@@ -119,9 +123,28 @@ body {
     border-left: 0.8rem solid #c82333;
 }
 
+.alert-calm {
+    color: #383d41;
+    background-color: #f3f3f5;
+    border-color: #d6d8db;
+}
+
+.card-explanation a {
+    color: #c82333;
+}
+
 @media all and (max-width: 1024px) {
     .question-mobile {
         font-size: 1.7rem;
         padding-bottom: 1rem;
-    }    
+    }
+
+    .alert-calm {
+        margin-top: 20px;
+    }
+
+    .card-explanation ul {
+        padding-inline-start: 20px
+    }
+    
 }

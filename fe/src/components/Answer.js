@@ -117,15 +117,15 @@ export default class extends Component {
                       { choice.text }
                     </div>
                     <div class="col-12 col-md-4">
-                      <div class="alert alert-secondary" role="alert" style={{ marginBottom: 0 }}>
-                        <small>Jawaban ini sependapat dengan <b>{ choice.result.map((result, index) => {
+                      <div class="alert alert-calm" role="alert" style={{ marginBottom: 0 }}>
+                        <small><b>{ choice.result.map((result, index) => {
                           let separator = '.';
                           if (index < choice.result.length - 1) {
                             separator = ', ';
                           }
                           const candidate = this.state.candidates[result];
                           if (candidate == null) {
-                            return ('tidak ada satupun calon' + separator)
+                            return ('Tidak ada satupun calon' + separator)
                           }
                           return (candidate.name + separator)
                         }) }</b>
@@ -133,7 +133,7 @@ export default class extends Component {
                       </div>
                     </div>
                   </div>
-                  
+
                 </div>
               </div>
               <br/>
@@ -142,12 +142,12 @@ export default class extends Component {
         }) }
 
         <div className="card">
-          <div className="card-body">
+          <div className="card-header" style={{ backgroundColor: '#dc3545' }}></div>
+          <div className="card-body text-justify card-explanation">
 
             <ReactMarkdown
               source={ this.currentQuestion().reason }
               linkTarget={'_blank'}/>
-            <br/>
             <div>
               <small><i>Sumber dan referensi:</i>
               <ul>

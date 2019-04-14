@@ -33,8 +33,6 @@ ResultPage.getInitialProps = async function(context) {
     }
   }).then(res => res.json());
 
-  console.log(result);
-
   // if (result.last_unanswered == null) {
   //   if (context.res) {
   //     context.res.writeHead(302, {
