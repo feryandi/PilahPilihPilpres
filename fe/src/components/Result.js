@@ -23,7 +23,7 @@ export default class extends Component {
 
     let answered = 0;
     for (let key in this.props.answers) {
-      if (parseInt(this.props.answers[key]['answer']) >= 0) {
+      if (this.props.answers[key]['qid'] != 1409949757 && parseInt(this.props.answers[key]['answer']) >= 0) {
         answered += 1;
       }
     }
@@ -31,6 +31,7 @@ export default class extends Component {
   }
 
   getPercentage(score) {
+    console.log(this.state.answered)
     return (100 * score / this.state.answered).toFixed(0);
   }
 
@@ -103,28 +104,32 @@ export default class extends Component {
             }
             return (
               this.state.result.map[parseInt(score)].map((result, index) => {
-                return (
-                  <div key={score + '-result-' + index} className="row">
-                    <div className="col-12 offset-md-3 col-md-6 result-other">
+                if (result > -1) {
+                  return (
+                    <div key={score + '-result-' + index} className="row">
+                      <div className="col-12 offset-md-3 col-md-6 result-other">
 
-                      <div className="row">
-                        <div className="col-2 result-no-right-padding">                      
-                          <span className="badge badge-pill badge-secondary result-label">
-                            { this.getPercentage(score) }%
-                          </span>
-                        </div>
+                        <div className="row">
+                          <div className="col-2 result-no-right-padding">                      
+                            <span className="badge badge-pill badge-secondary result-label">
+                              { this.getPercentage(score) }%
+                            </span>
+                          </div>
 
-                        <div className="col-10">
-                          aspirasi Anda&nbsp;
-                          { this.state.candidates[result] == null ?
-                            `tidak dipenuhi oleh calon manapun` :
-                            `dipenuhi oleh pasangan ` + this.state.candidates[result].name }
+                          <div className="col-10">
+                            aspirasi Anda&nbsp;
+                            { this.state.candidates[result] == null ?
+                              `tidak dipenuhi oleh calon manapun` :
+                              `dipenuhi oleh pasangan ` + this.state.candidates[result].name }
+                          </div>
                         </div>
+                        
                       </div>
-                      
                     </div>
-                  </div>
-                );
+                  );
+              } else {
+                return;
+              }
               })
             )
           })

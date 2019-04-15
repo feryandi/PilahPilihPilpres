@@ -1,3 +1,6 @@
 dispatch:
-  - url: "*.pilahpilihpilpres.id/*"
+  - url: "pilahpilihpilpres.com/*"
     service: survey
+  - url: "www.pilahpilihpilpres.com/*"
+    service: survey
+

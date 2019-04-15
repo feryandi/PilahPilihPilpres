@@ -40,7 +40,7 @@ export default class extends Component {
                   type="button"
                   className="btn btn-danger btn-block"
                   onClick={() => { this.setState({ is_answer: true, is_result: false }) }}>
-                  <b>PENJELASAN</b>
+                  <b>PENJELASAN JAWABAN</b>
                 </button>
               }
               </div>

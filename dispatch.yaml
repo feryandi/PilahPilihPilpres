@@ -1,3 +1,0 @@
-dispatch:
-  - url: "pilpres.hoaxanalyzer.com/*"
-    service: survey

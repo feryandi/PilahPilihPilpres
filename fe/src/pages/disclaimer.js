@@ -33,12 +33,15 @@ const Privacy = (props) => {
         <p>Selamat mengeksplorasi!</p>
         <br/>
         <p>Kami,</p>
+        <p>Tim PilahPilihPilpres</p>
         <p>Asanilta Fahda
           <br/>Audhina Nur Afifah
           <br/>Eduard Lazarus
           <br/>Fikri Khalqih S.
           <br/>Feryandi Nurdiantoro</p>
         </div>
+        <br/>
+        <p>Kontak: <a href="mailto:kontak@pilahpilihpilpres.com">kontak@pilahpilihpilpres.com</a></p>
         <div className="row text-right">
           <div className="col col-md">
           </div>

@@ -74,14 +74,24 @@ export default class extends Component {
         <div>
           <div className="row">
             <div className="col">
-              <h2 className="home-title">Siapa Presiden Pilihanmu?</h2>
+              <h2 className="home-title"><img src="/static/images/logo.png" style={{ width: '70%' }}/></h2>
             </div>
           </div>
           <div className="row">
             <div className="col">
-              <p>Cari tahu siapa calon presiden dan wakil presiden yang mewakili aspirasimu melalui pertanyaan-pertanyaan yang kami sediakan.</p>
+              <p>
+              Kuis ini ditujukan untuk membantu Anda memahami kecocokan preferensi pribadi dengan program maupun gagasan kedua pasangan calon Pemilu 2019.
+              <br/>
+              <small>
+              Instruksi:
+              <ol style={{ paddingInlineStart: '15px' }}>
+              <li>Jawablah pertanyaan dengan satu opsi yang paling sesuai dengan aspirasimu.</li>
+              <li>Jika merasa tidak yakin dengan jawaban yang tersedia, silakan klik Lewati (tapi jangan terlalu banyak melewati pertanyaan, ya!)</li>
+              <li>Jangan lupa untuk membaca penjelasan tiap pertanyaan di akhir kuis untuk menambah pemahamanmu akan program kedua Paslon ;)</li>
+              </ol>
+              </small></p>
               <p className="grecaptcha-text">
-              Baca <Link href='/disclaimer'>disclaimer</Link> untuk mengetahui lebih lanjut mengenai kuis ini.
+              Situs ini dibuat secara netral dan objektif serta tidak terafiliasi pihak manapun. Baca <Link href='/disclaimer'>disclaimer</Link> kami untuk mengetahui lebih lanjut tentang kuis ini.
               </p>
               <br/>
               <br/>
@@ -104,7 +114,7 @@ export default class extends Component {
               </Link>
               <br/>
               <p className="grecaptcha-text">
-                {/* Dengan mengisi kuis, Anda setuju dengan <Link href='/disclaimer'>Disclaimer</Link> kami. */}
+                Dengan mengisi kuis, Anda setuju dengan <Link href='/privacy'>Kebijakan Privasi</Link> kami.
               </p>
             </div>
           </div>

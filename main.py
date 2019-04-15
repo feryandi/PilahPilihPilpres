@@ -36,9 +36,10 @@ class Question:
   ]
   """
 
-  def __init__(self, client, question=None, choice=None, reason=None, sources=None):
+  def __init__(self, client, question=None, choice=None, reason=None, sources=None, helper=None):
     self.client = client
     self.question = question
+    self.helper = helper
     self.choice = choice
     self.reason = reason
     self.sources = sources
@@ -48,6 +49,7 @@ class Question:
     entity = datastore.Entity(key=key)
     entity.update({
         'question': self.question,
+        'helper': self.helper,
         'choice': self.choice,
         'reason': self.reason,
         'sources': self.sources,
@@ -59,6 +61,7 @@ class Question:
     result = self.client.get(key)
     if result is not None:
       self.question = result.get('question')
+      self.helper = result.get('helper')
       self.choice = result.get('choice')
       self.reason = result.get('reason')
       self.sources = result.get('sources')
@@ -77,6 +80,7 @@ class Question:
     for entity in results:
       questions[entity.id] = {
         "question": entity.get('question'),
+        "helper": entity.get('helper'),
         "choice": entity.get('choice'),
         "reason": entity.get('reason'),
         "sources": entity.get('sources')
@@ -196,6 +200,7 @@ def get_questions_and_answers(fp, se, hide_answers=True):
     response_question[q] = {
       "id": key,
       "question": value.get("question"),
+      "helper": value.get("helper"),
       "choice": []
     }
 
@@ -346,15 +351,16 @@ def get_result(request):
     for choice in choices:
       parties = choice.get('result', [])
       for party in parties:
-        p = str(party)
-        if int(choice.get('id', -1)) == int(selected_answer):
-          if p in result:
-            result[p] += 1
+        if party >= 0:
+          p = str(party)
+          if int(choice.get('id', -1)) == int(selected_answer):
+            if p in result:
+              result[p] += 1
+            else:
+              result[p] = 1
           else:
-            result[p] = 1
-        else:
-          if p not in result:
-            result[p] = 0
+            if p not in result:
+              result[p] = 0
 
   score_map = {}
   score_order = []

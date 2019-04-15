@@ -129,7 +129,7 @@ export default class extends Component {
 
     let host = "http://localhost:3000"
     if (process.env.NODE_ENV === 'production') {
-      host = "https://www.pilahpilihpilpres.id"
+      host = "https://pilahpilihpilpres.com"
     }
 
     // TODO: Only absolute URL
@@ -178,7 +178,7 @@ export default class extends Component {
             </h2>
           </div>
           <div className="col">
-            <h2 className="question-mobile">
+            <h2 style={{ fontWeight: 100 }} className="question-mobile">
               <ReactMarkdown
                 source={ this.currentQuestion().question }/>              
             </h2>

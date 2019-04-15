@@ -51,7 +51,7 @@ export default class extends Component {
   hasNextQuestion() {
     const current_question = this.state.current_question;
     const questions = this.state.questions;
-    return current_question + 1 < Object.keys(questions).length
+    return current_question + 1 < Object.keys(questions).length - 1
   }
 
   nextQuestion() {
@@ -125,7 +125,7 @@ export default class extends Component {
                           }
                           const candidate = this.state.candidates[result];
                           if (candidate == null) {
-                            return ('Tidak ada satupun calon' + separator)
+                            return ('Tidak diakomodasi kedua Paslon' + separator)
                           }
                           return (candidate.name + separator)
                         }) }</b>

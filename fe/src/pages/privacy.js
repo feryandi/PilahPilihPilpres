@@ -4,10 +4,25 @@ import Layout from '../components/Layout';
 const Privacy = (props) => {
   return(
     <Layout>
+        <div className="row text-right">
+          <div className="col col-md">
+          </div>
+          <div className="col col-md">
+          </div>
+          <div className="col-12 col-md">
+            <Link href='/'>
+              <button
+                type="button"
+                className="btn btn-danger">
+                <b>KEMBALI&nbsp;&nbsp;<i className="fas fa-arrow-circle-left"/></b>
+              </button>
+            </Link>
+          </div>
+        </div>
         <div style={{ textAlign: 'justify'}}>
         <h2>KEBIJAKAN PRIVASI</h2>
         <p>
-          Kebijakan Privasi ini menjelaskan bagaimana tim PilahPilihPilpres ("Kami") mengumpulkan, menggunakan, menyingkapkan, memproses dan melindungi informasi yang Anda ("Pengguna") dapat berikan sehubungan dengan layanan PilahPilihPilpres yang tersedia melalui situs web di pilahpilihpilpres.id ("Situs"). Referensi ke Situs dianggap mencakup turunan daripadanya, termasuk tetapi tidak harus terbatas pada situs web mobile dan aplikasi. Dengan mengunjungi atau menggunakan Situs, Anda sepakat dan menyetujui pengumpulan, penggunaan, penyingkapan dan pemrosesan Data Pribadi Anda sesuai dengan Kebijakan Privasi ini dan/atau Persyaratan Situs Web. Jika Anda tidak setuju dengan Kebijakan Privasi di bawah ini, silakan segera tinggalkan Situs.
+          Kebijakan Privasi ini menjelaskan bagaimana tim PilahPilihPilpres ("Kami") mengumpulkan, menggunakan, menyingkapkan, memproses dan melindungi informasi yang Anda ("Pengguna") dapat berikan sehubungan dengan layanan PilahPilihPilpres yang tersedia melalui situs web di pilahpilihpilpres.com ("Situs"). Referensi ke Situs dianggap mencakup turunan daripadanya, termasuk tetapi tidak harus terbatas pada situs web mobile dan aplikasi. Dengan mengunjungi atau menggunakan Situs, Anda sepakat dan menyetujui pengumpulan, penggunaan, penyingkapan dan pemrosesan Data Pribadi Anda sesuai dengan Kebijakan Privasi ini dan/atau Persyaratan Situs Web. Jika Anda tidak setuju dengan Kebijakan Privasi di bawah ini, silakan segera tinggalkan Situs.
         </p>
         <p>
         Dari waktu ke waktu, Kami dapat merevisi Kebijakan Privasi ini untuk mencerminkan perubahan dalam hukum, pengumpulan dan praktik penggunaan Data Pribadi kami, fitur Situs kami, atau kemajuan dalam teknologi. Jika kami membuat revisi yang mengubah cara kami mengumpulkan atau menggunakan Data Pribadi Anda, perubahan tersebut akan dimuat di dalam Kebijakan Privasi ini dan tanggal berlaku akan dicatat pada permulaan Kebijakan Privasi ini. Oleh karena itu, Anda harus meninjau Kebijakan Privasi ini secara berkala sehingga Anda selalu mendapatkan informasi terkini akan kebijakan dan praktik kami saat ini. Kami juga akan memasang dengan jelas perubahan materi tersebut sebelum mengimplementasikan perubahannya. Jika Anda tidak setuju dengan perubahan atau modifikasi terhadap Kebijakan Privasi, harap jangan melanjutkan menggunakan Situs. Anda akan dianggap telah menyetujui setiap modifikasi Kebijakan Privasi ketika Anda menggunakan Situs setelah tanggal berlaku modifikasi.
@@ -60,6 +75,21 @@ const Privacy = (props) => {
         <br/>
         <br/>
         Efektif April 2019
+        </div>
+        <div className="row text-right">
+          <div className="col col-md">
+          </div>
+          <div className="col col-md">
+          </div>
+          <div className="col-12 col-md">
+            <Link href='/'>
+              <button
+                type="button"
+                className="btn btn-danger">
+                <b>KEMBALI&nbsp;&nbsp;<i className="fas fa-arrow-circle-left"/></b>
+              </button>
+            </Link>
+          </div>
         </div>
     </Layout>
   )
