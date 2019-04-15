@@ -5,6 +5,7 @@ const next = require('next');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const useragent = require('express-useragent');
+const compression = require('compression');
 // const csrf = require('csurf')
 
 const dev = process.env.NODE_ENV !== 'production';
@@ -20,6 +21,7 @@ const result = require('./api/result');
 app.prepare().then(() => {
   const server = express();
   // const csrfProtection = csrf({ cookie: true });
+  server.use(compression());
 
   server.use(bodyParser.urlencoded({ extended: false }));
   server.use(bodyParser.json());

@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import Link from 'next/link'
+import Router from 'next/router'
 
 export default class extends Component {
   constructor (props) {
@@ -27,11 +26,10 @@ export default class extends Component {
         answered += 1;
       }
     }
-    this.state.answered = answered
+    this.state.answered = answered;
   }
 
   getPercentage(score) {
-    console.log(this.state.answered)
     return (100 * score / this.state.answered).toFixed(0);
   }
 
@@ -133,7 +131,7 @@ export default class extends Component {
               })
             )
           })
-        }        
+        }
       </div>
     )
   }

@@ -14,6 +14,11 @@ router.post('/generate', (req, res) => {
   body['ua'] = req.headers['user-agent'];
   body['ip'] = req.headers['x-forwarded-for'] || req.connection.remoteAddress
 
+  if (!(typeof body['fp'] === 'string' || body['fp'] instanceof String) || !(/[a-fA-F0-9]{32}/).test(body['fp'])) {
+    res.status(500).send({ errors: [ { code: "Outage", title: "You broke it. Congratulations!" } ] });
+    return;
+  }
+
   fetch(`${FUNCTION_ENDPOINT}/survey-get-session`, {
     method: 'POST',
     body: JSON.stringify(body),

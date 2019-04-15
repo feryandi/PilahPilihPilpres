@@ -4,6 +4,11 @@ instance_class: F1
 
 service: survey
 
+automatic_scaling:
+  max_idle_instances: 1  # default value
+  min_pending_latency: automatic  # default value
+  max_pending_latency: 500ms
+
 handlers:
 - url: /.*
   script: auto

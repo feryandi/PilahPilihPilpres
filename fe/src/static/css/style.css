@@ -137,6 +137,12 @@ body {
     border-color: #d6d8db;
 }
 
+.alert-code {
+    font-family: sans-serif;
+    text-overflow: clip;
+    word-wrap: break-word;
+}
+
 .card-explanation ul > li > p {
     margin-bottom: 0px;
 }

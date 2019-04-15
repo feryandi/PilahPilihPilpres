@@ -22,14 +22,11 @@ router.post('/send', (req, res) => {
   })
   .then((response) => {
     return response.json().then((document) => {
-        console.log(document)
         if (!document['success']) {
             res.status(403).send({ errors: [ { code: "Server Protection", title: "ReCaptcha token couldn't be verified." } ] })
             return;
         }
         
-        console.log(JSON.stringify(body))
-
         fetch(`${FUNCTION_ENDPOINT}/survey-post-answer`, {
             method: 'POST',
             body: JSON.stringify(body),
