@@ -1,0 +1,3 @@
+dispatch:
+  - url: "*.pilahpilihpilpres.id/*"
+    service: survey

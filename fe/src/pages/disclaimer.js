@@ -34,6 +34,7 @@ const Privacy = (props) => {
         <br/>
         <p>Kami,</p>
         <p>Asanilta Fahda
+          <br/>Audhina Nur Afifah
           <br/>Eduard Lazarus
           <br/>Fikri Khalqih S.
           <br/>Feryandi Nurdiantoro</p>

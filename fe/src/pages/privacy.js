@@ -6,28 +6,17 @@ const Privacy = (props) => {
     <Layout>
         <div style={{ textAlign: 'justify'}}>
         <h2>KEBIJAKAN PRIVASI</h2>
-        <p>Kuis Pemilu dimiliki dan dioperasikan oleh Asanilta Fahda dan Feryandi Nurdiantoro ("Kami").
-        Kebijakan Privasi ini menjelaskan bagaimana kami mengumpulkan, menggunakan, menyingkapkan, memproses dan melindungi informasi pribadi yang teridentifikasi ("Data Pribadi") yang Anda ("Pengguna") dapat berikan sehubungan dengan layanan Kuis Pemilu yang tersedia melalui situs web di survey-dot-hoax-analyzer.appspot.com dan/atau pilpres.hoaxanalyzer.com ("Situs").
-        Data Pribadi berarti data, apakah benar atau tidak, tentang seorang individu yang dapat diidentifikasi dari data tersebut, atau dari data dan informasi lainnya yang aksesnya dimiliki atau mungkin dimiliki organisasi.
-        Referensi ke Situs dianggap mencakup turunan daripadanya, termasuk namun tidak harus terbatas pada situs web mobile dan aplikasi.
-        Dengan mengunjungi atau menggunakan Situs, Anda sepakat dan menyetujui pengumpulan, penggunaan, penyingkapan dan pemrosesan Data Pribadi Anda sesuai dengan Kebijakan Privasi ini dan/atau Persyaratan Situs Web.
-        Jika Anda tidak setuju dengan Kebijakan Privasi di bawah ini, silakan segera tinggalkan Situs.
+        <p>
+          Kebijakan Privasi ini menjelaskan bagaimana tim PilahPilihPilpres ("Kami") mengumpulkan, menggunakan, menyingkapkan, memproses dan melindungi informasi yang Anda ("Pengguna") dapat berikan sehubungan dengan layanan PilahPilihPilpres yang tersedia melalui situs web di pilahpilihpilpres.id ("Situs"). Referensi ke Situs dianggap mencakup turunan daripadanya, termasuk tetapi tidak harus terbatas pada situs web mobile dan aplikasi. Dengan mengunjungi atau menggunakan Situs, Anda sepakat dan menyetujui pengumpulan, penggunaan, penyingkapan dan pemrosesan Data Pribadi Anda sesuai dengan Kebijakan Privasi ini dan/atau Persyaratan Situs Web. Jika Anda tidak setuju dengan Kebijakan Privasi di bawah ini, silakan segera tinggalkan Situs.
         </p>
         <p>
-        Dari waktu ke waktu, Kuis Pemilu dapat merevisi Kebijakan Privasi ini untuk mencerminkan perubahan dalam hukum, pengumpulan dan praktik penggunaan Data Pribadi kami, fitur Situs kami, atau kemajuan dalam teknologi.
-        Jika kami membuat revisi yang mengubah cara kami mengumpulkan atau menggunakan Data Pribadi Anda, perubahan tersebut akan dimuat di dalam Kebijakan Privasi ini dan tanggal berlaku akan dicatat pada permulaan Kebijakan Privasi ini.
-        Oleh karena itu, Anda harus meninjau Kebijakan Privasi ini secara berkala sehingga Anda selalu mendapatkan informasi terkini akan kebijakan dan praktik kami saat ini.
-        Kuis Pemilu juga akan memasang dengan jelas perubahan materi tersebut sebelum mengimplementasikan perubahannya.
-        Jika Anda tidak setuju dengan perubahan atau modifikasi terhadap Kebijakan Privasi, harap jangan melanjutkan menggunakan Situs.
-        Anda akan dianggap telah menyetujui setiap modifikasi Kebijakan Privasi ketika Anda menggunakan Situs setelah tanggal berlaku modifikasi.
+        Dari waktu ke waktu, Kami dapat merevisi Kebijakan Privasi ini untuk mencerminkan perubahan dalam hukum, pengumpulan dan praktik penggunaan Data Pribadi kami, fitur Situs kami, atau kemajuan dalam teknologi. Jika kami membuat revisi yang mengubah cara kami mengumpulkan atau menggunakan Data Pribadi Anda, perubahan tersebut akan dimuat di dalam Kebijakan Privasi ini dan tanggal berlaku akan dicatat pada permulaan Kebijakan Privasi ini. Oleh karena itu, Anda harus meninjau Kebijakan Privasi ini secara berkala sehingga Anda selalu mendapatkan informasi terkini akan kebijakan dan praktik kami saat ini. Kami juga akan memasang dengan jelas perubahan materi tersebut sebelum mengimplementasikan perubahannya. Jika Anda tidak setuju dengan perubahan atau modifikasi terhadap Kebijakan Privasi, harap jangan melanjutkan menggunakan Situs. Anda akan dianggap telah menyetujui setiap modifikasi Kebijakan Privasi ketika Anda menggunakan Situs setelah tanggal berlaku modifikasi.
         </p>
         <br/>
         <b>Informasi yang Kami Kumpulkan</b>
         <br/>
-        Kami hanya mengumpulkan informasi non-pribadi yang teridentifikasi (yang tidak dapat digunakan untuk mengidentifikasi Anda), termasuk namun tidak terbatas pada alamat protokol internet ("IP") Anda, data lokasi geografis, jenis sistem pengoperasian, kebangsaan, preferensi pencarian, begitu pula data umum lainnya terkait penggunaan Internet.
-        Data jawaban kuis yang Anda berikan pada saat menggunakan Situs juga Kami kumpulkan.
+        Kami hanya mengumpulkan informasi non-pribadi yang teridentifikasi (yang tidak dapat digunakan untuk mengidentifikasi Anda), termasuk tetapi tidak terbatas pada alamat protokol internet ("IP") Anda, browser, jenis sistem pengoperasian, begitu pula data umum lainnya terkait penggunaan Internet. Data jawaban kuis yang Anda berikan pada saat menggunakan Situs juga Kami kumpulkan.
         <br/>
-
         <br/>
         <b>Bagaimana Kami Menggunakan Informasi Anda</b>
         <br/>
@@ -44,7 +33,7 @@ const Privacy = (props) => {
         Sebagaimana dinyatakan di atas, dengan menjelajah dan menggunakan Situs, atau dengan mengeklik tombol "Konfirmasi" atau setara ketika Anda menjelajah situs, Anda:
         <ul>
         <li>menyetujui Kami mengumpulkan, menggunakan, menyingkap dan/atau mengolah data pribadi yang disebutkan di atas untuk tujuan seperti yang dijelaskan di atas; dan</li>
-        <li>menyetujui Kami mentransfer data pribadi Anda keluar dari Indonesia ke lokasi perusahaan afiliasi lain yang perusahaan afiliasi lain tersebut ini berada, dan untuk penyedia layanan pihak ketiga Kami, pemasok atau agen untuk tujuan seperti dijelaskan di atas.</li>
+        <li>menyetujui Kami menyimpan data yang disebutkan di atas dalam Google Cloud Datastore.</li>
         </ul>
 
         <br/>

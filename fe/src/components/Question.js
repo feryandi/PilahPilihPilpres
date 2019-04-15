@@ -129,7 +129,7 @@ export default class extends Component {
 
     let host = "http://localhost:3000"
     if (process.env.NODE_ENV === 'production') {
-      host = "https://pilpres.hoaxanalyzer.com"
+      host = "https://www.pilahpilihpilpres.id"
     }
 
     // TODO: Only absolute URL

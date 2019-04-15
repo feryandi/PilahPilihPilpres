@@ -34,11 +34,11 @@ app.prepare().then(() => {
   server.get('*', (req, res) => {
     const host = req.headers.host;
 
-    if (host.startsWith("localhost:") || host == "pilpres.hoaxanalyzer.com") {
+    if (host.startsWith("localhost:") || host == "www.pilahpilihpilpres.id") {
       return handle(req, res); 
     }
     
-    res.redirect("https://pilpres.hoaxanalyzer.com")
+    res.redirect("https://www.pilahpilihpilpres.id")
   });
 
   server.listen(port, (err) => {
