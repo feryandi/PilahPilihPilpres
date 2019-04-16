@@ -6,14 +6,14 @@ let FormData = require('form-data')
 
 const fetch = require('isomorphic-fetch');
 
-const FUNCTION_ENDPOINT = '***REMOVED***';
+const FUNCTION_ENDPOINT = process.env.FUNCTION_ENDPOINT;
 
 router.post('/send', (req, res) => {
   res.setHeader('Content-Type', 'application/json');
 
   let body = req.body;
 
-  let form = "secret=***REMOVED***&response=" + body['reCaptcha'];
+  let form = "secret=" + process.env.RECAPTCHA_SECRET + "&response=" + body['reCaptcha'];
 
   fetch(`https://www.google.com/recaptcha/api/siteverify`, {
     method: 'POST',

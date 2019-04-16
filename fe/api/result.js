@@ -6,7 +6,7 @@ let FormData = require('form-data')
 
 const fetch = require('isomorphic-fetch');
 
-const FUNCTION_ENDPOINT = '***REMOVED***';
+const FUNCTION_ENDPOINT = process.env.FUNCTION_ENDPOINT;
 
 router.post('/get', (req, res) => {
     res.setHeader('Content-Type', 'application/json');

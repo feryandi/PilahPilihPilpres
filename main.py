@@ -5,6 +5,7 @@ import flask
 import time
 import hashlib
 import random
+import os
 
 SURVEY_ID = 1
 
@@ -185,7 +186,7 @@ def validate_request(payload, required_attributes):
   return None
 
 def create_user_token(fp, se):
-  return hashlib.sha256(("***REMOVED***{}-{}***REMOVED***".format(se, fp)).encode('utf-8')).hexdigest()
+  return hashlib.sha256(("pemilu-{}-{}-{}".format(se, fp, os.environ.get('SALT', 'notset'))).encode('utf-8')).hexdigest()
 
 def get_questions_and_answers(fp, se, hide_answers=True):
   question = Question(client)
