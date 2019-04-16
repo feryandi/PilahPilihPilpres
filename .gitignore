@@ -6,3 +6,4 @@ fe/.next
 .next
 .env
 *.pyc
+__pycache__
