@@ -285,13 +285,8 @@ def get_questionnaire(request):
     "to": "sha256"
   }
   """
-  # payload = request.get_json()
-  payload = {
-    "fp": "abcdefg",
-    "se": "f836c833-9bdc-4cd4-9a8d-37218ec0b634",
-    "to": "5d326faba2da05ec2a8f12ad20ff3e3219f6114e3a7d8b080c62135d77062da9"
-  }
-
+  payload = request.get_json()
+  
   validation = validate_request(payload, ['fp', 'se', 'to'])
   if validation is not None:
     return validation

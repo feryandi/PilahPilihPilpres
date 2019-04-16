@@ -22,6 +22,12 @@ export default class MyDocument extends Document {
           <meta property="og:description" content="Kuis ini ditujukan untuk membantu Anda memahami kecocokan preferensi pribadi dengan program maupun gagasan kedua pasangan calon Pemilu 2019" />
           <meta property="og:image" content="https://pilahpilihpilpres.com/static/images/logo.squared.jpeg" />
 
+          <script async src="https://www.googletagmanager.com/gtag/js?id=UA-138399911-1"></script>
+          <script dangerouslySetInnerHTML={{__html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'UA-138399911-1');`}} />
         </Head>
         <body className="bg-light">
           <Main />

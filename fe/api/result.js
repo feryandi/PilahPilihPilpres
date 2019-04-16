@@ -25,6 +25,9 @@ router.post('/get', (req, res) => {
     })
     .then((response) => {
         let {code, document} = response;
+        if (document['status'] && document['status'] == 'error') {
+            console.error("[Unsucessfull API Call] /result - " + JSON.stringify(body) + " - " + JSON.stringify(document));
+        }
         res.status(code).send(JSON.stringify(document));
         return;
     })
